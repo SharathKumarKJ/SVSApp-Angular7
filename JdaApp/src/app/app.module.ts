@@ -9,8 +9,8 @@ import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, Mat
 import { LayoutModule } from '@angular/cdk/layout';
 import { NavigationComponent } from './navigation/navigation.component';
 import { HomeComponent } from './home/home.component';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import { HttpClientModule, HTTP_INTERCEPTORS }    from '@angular/common/http';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SignInComponent } from './user/sign-in/sign-in.component';
 import { UserComponent } from './user/user.component';
 import { SignUpComponent } from './user/sign-up/sign-up.component';
@@ -36,6 +36,7 @@ import { BrowseTeacherSubjectDetailComponent } from './browse-teacher-subject-de
 import { FeeDetailComponent } from './fee-detail/fee-detail.component';
 import { BrowseFeeDetailComponent } from './browse-fee-detail/browse-fee-detail.component';
 import { BrowseUserComponent } from './browse-user/browse-user.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -89,7 +90,8 @@ import { BrowseUserComponent } from './browse-user/browse-user.component';
     MatGridListModule,
     MatMenuModule,
     MatTreeModule,
-    DragDropModule
+    DragDropModule,
+    ToastrModule.forRoot()
   ],
   providers: [UserService, AuthGuard,
     {

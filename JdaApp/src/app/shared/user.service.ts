@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Response } from '@angular/http';
 import { observable, of } from 'rxjs';
 import { User } from './user.model';
+import { RootURL } from './RootURL.model';
 
 @Injectable({
 
@@ -10,9 +11,6 @@ import { User } from './user.model';
 })
 
 export class UserService {
-
-  readonly rootUrl = "http://localhost:54937";
-
   constructor(private httpClient: HttpClient) { }
 
   registerUser(user: User) {
@@ -24,18 +22,18 @@ export class UserService {
       LastName: user.LastName
     }
     var reqHeader = new HttpHeaders({ 'No-Auth': 'True' });
-    return this.httpClient.post(this.rootUrl + '/api/User/Register', body, { headers: reqHeader });
+    return this.httpClient.post(RootURL.URl+ '/api/User/Register', body, { headers: reqHeader });
 
   }
 
   userAuthentication(userName, password) {
     var data = "username=" + userName + "&password=" + password + "&grant_type=password";
     var reqHeader = new HttpHeaders({ 'Content-Type': 'application/x-www-urlencoded', 'No-Auth': 'True' });
-    return this.httpClient.post(this.rootUrl + '/token', data, { headers: reqHeader });
+    return this.httpClient.post(RootURL.URl + '/token', data, { headers: reqHeader });
   }
 
   getUserClaims() {
-    return this.httpClient.get(this.rootUrl + '/api/GetUserClaims');
+    return this.httpClient.get(RootURL.URl+ '/api/GetUserClaims');
   }
 
   

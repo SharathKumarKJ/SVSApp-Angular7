@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import { Component,ViewContainerRef  } from '@angular/core';
 import { FormBuilder, Validators, NgForm } from '@angular/forms';
 import { Class } from '../class-detail/class.model';
 import { ClassDetailService } from '../shared/class-detail.service';
 import { Student } from './student.model';
-import { ReactiveFormsModule } from '@angular/forms';
 import { StudentService } from '../shared/student.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-student',
@@ -90,11 +90,31 @@ export class StudentComponent {
 
   hasUnitNumber = false;
 
-  constructor(private fb: FormBuilder, private classService: ClassDetailService, private studentService: StudentService) { }
+  constructor(private fb: FormBuilder, private classService: ClassDetailService, private studentService: StudentService,private toastr: ToastrService) 
+  { 
+    
+  }
   ngOnInit() {
+
     this.GetClasses();
   }
 
+  showSuccess() {
+    this.toastr.success('Student has been added !', 'Success!');
+  }
+
+  showError() {
+    this.toastr.error('Unable to add student detail !', 'Oops!');
+  }
+
+  showWarning() {
+    this.toastr.warning('You are being warned.', 'Alert!');
+  }
+
+  showInfo() {
+    this.toastr.info('Just some information for you.');
+  }
+  
   private GetClasses() {
     this.classService.getClasses().subscribe((data: any) => {
       this.classDetails = data;
@@ -105,7 +125,7 @@ export class StudentComponent {
     this.student = this.studentForm.value;
     this.student.ClassDetail = this.classDetails.find(x => x.ClassName == this.studentForm.value.ClassDetail);
     this.studentService.AddStudent(this.student).subscribe((x: any) => {
-      alert('Student has been added successfully !');
+      this.showSuccess();
       this.studentForm.reset();
     });
   }
