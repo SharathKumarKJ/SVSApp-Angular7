@@ -1,0 +1,200 @@
+<form [formGroup]="studentForm" novalidate (ngSubmit)="onSubmit()">
+  <mat-card class="shipping-card">
+    <mat-card-header>
+      <mat-card-title>Student Information</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-accordion>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Personal Information
+                </mat-panel-title>
+                <mat-panel-description>
+                  <!-- Type your name and age -->
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+          
+              <div class="row">
+                  <div class="col">
+                    <mat-form-field class="full-width">
+                      <input matInput placeholder="First Name" formControlName="FirstName">
+                      <mat-error *ngIf="studentForm.controls['FirstName'].hasError('required')">
+                        First name is <strong>required</strong>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col">
+                    <mat-form-field class="full-width">
+                      <input matInput placeholder="Last Name" formControlName="LastName">
+                      <mat-error *ngIf="studentForm.controls['LastName'].hasError('required')">
+                        Last name is <strong>required</strong>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <mat-form-field class="full-width">
+                      <input matInput placeholder="Father Name" formControlName="FatherName">
+                      <mat-error *ngIf="studentForm.controls['FatherName'].hasError('required')">
+                        Father Name is <strong>required</strong>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col">
+                    <mat-form-field class="full-width">
+                      <input matInput placeholder="MotherName" formControlName="MotherName">
+                      <mat-error *ngIf="studentForm.controls['MotherName'].hasError('required')">
+                        Mother Name is <strong>required</strong>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <mat-form-field class="full-width">
+                      <input matInput placeholder="Father Mobile Number" formControlName="FatherMobileNumber">
+                      <mat-error *ngIf="studentForm.controls['FatherMobileNumber'].hasError('required')">
+                        Father Mobile Number is <strong>required</strong>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col">
+                    <mat-form-field class="full-width">
+                      <input matInput placeholder="Mother Mobile Number" formControlName="MotherMobileNumber">
+                      <mat-error *ngIf="studentForm.controls['MotherMobileNumber'].hasError('required')">
+                        Mother Mobile Number is <strong>required</strong>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <mat-form-field class="full-width">
+                      <input matInput placeholder="STS Code" formControlName="STSCode">
+                      <mat-error *ngIf="studentForm.controls['STSCode'].hasError('required')">
+                        STSCode is <strong>required</strong>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col">
+                    <mat-form-field class="full-width">
+                      <input matInput placeholder="Caste Name" formControlName="CasteName">
+                      <mat-error *ngIf="studentForm.controls['CasteName'].hasError('required')">
+                        Caste Name is <strong>required</strong>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <mat-form-field class="full-width">
+                      <input matInput [matDatepicker]="DateofBirth" placeholder="Date of Birth" formControlName="DateofBirth">
+                      <mat-datepicker-toggle matSuffix [for]="DateofBirth"></mat-datepicker-toggle>
+                      <mat-datepicker #DateofBirth></mat-datepicker>
+                    </mat-form-field>
+                    <mat-error *ngIf="studentForm.controls['DateofBirth'].hasError('required')">
+                      Date of Birth is <strong>required</strong>
+                    </mat-error>
+                  </div>
+                  <div class="col">
+                    <mat-form-field class="full-width">
+                      <mat-select placeholder="Class Detail" formControlName="ClassDetail">
+                        <mat-option *ngFor="let classDetail of classDetails" [value]="classDetail.ClassName">
+                          {{ classDetail.ClassName }}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="studentForm.controls['ClassDetail'].hasError('required')">
+                        Class Detail is <strong>required</strong>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+            </mat-expansion-panel>
+            <mat-expansion-panel (opened)="panelOpenState = true"
+                                 (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Address Information
+                </mat-panel-title>
+                <mat-panel-description>
+                  <!-- Currently I am {{panelOpenState ? 'open' : 'closed'}} -->
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div class="row">
+                  <div class="col">
+                    <mat-form-field class="full-width">
+                      <textarea matInput placeholder="Address1" formControlName="Address1"></textarea>
+                      <mat-error *ngIf="studentForm.controls['Address1'].hasError('required')">
+                        Address1 is <strong>required</strong>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col" *ngIf="!hasUnitNumber">
+                    <button mat-button type="button" (click)="hasUnitNumber = !hasUnitNumber">
+                      + Add C/O, Apt, Suite, Unit
+                    </button>
+                  </div>
+                  <div class="col" *ngIf="hasUnitNumber">
+                    <mat-form-field class="full-width">
+                      <textarea matInput placeholder="Address 2" formControlName="Address2"></textarea>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <mat-form-field class="full-width">
+                      <input matInput placeholder="City" formControlName="City">
+                      <mat-error *ngIf="studentForm.controls['City'].hasError('required')">
+                        City is <strong>required</strong>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col">
+                    <mat-form-field class="full-width">
+                      <mat-select placeholder="State" formControlName="State">
+                        <mat-option *ngFor="let state of states" [value]="state.abbreviation">
+                          {{ state.name }}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="studentForm.controls['State'].hasError('required')">
+                        State is <strong>required</strong>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <mat-form-field class="full-width">
+                      <input matInput #postalCode maxlength="5" placeholder="Postal Code" type="number" formControlName="PostalCode">
+                      <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
+                    </mat-form-field>
+                  </div>
+                  <div class="col">
+                    <mat-form-field class="full-width">
+                      <input matInput placeholder="Nationality" formControlName="Nationality">
+                      <mat-error *ngIf="studentForm.controls['Nationality'].hasError('required')">
+                        Nationality is <strong>required</strong>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <mat-radio-group formControlName="Gender">
+                      <mat-radio-button value="Male">Male</mat-radio-button>
+                      <mat-radio-button value="Female">Female</mat-radio-button>
+                    </mat-radio-group>
+                  </div>
+                </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+     
+     
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" type="submit">Submit</button>
+    </mat-card-actions>
+  </mat-card>
+</form>
