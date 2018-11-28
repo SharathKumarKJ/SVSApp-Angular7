@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Teacher } from './teacher.model';
 import { TeacherService } from '../shared/teacher.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-teacher',
@@ -84,19 +85,34 @@ export class TeacherComponent {
       City: null,
       State: null,
       PostalCode: null,
-     
+
     };
 
-    constructor(private fb: FormBuilder, private teacherService: TeacherService) { }
-    ngOnInit() {
-    }
-  
-    onSubmit() {
-      this.teacher = this.teacherForm.value;
-      this.teacherService.AddTeacher(this.teacher).subscribe((x: any) => {
-        alert('Teacher has been added successfully !');
-        this.teacherForm.reset();
-      });
-    }
+  constructor(private fb: FormBuilder, private teacherService: TeacherService, private toastr: ToastrService) { }
+  ngOnInit() {
   }
-  
+  showSuccess() {
+    this.toastr.success('Success!');
+  }
+
+  showError(error: any) {
+    this.toastr.error('Unable to add Teacher detail !' + error, 'Oops!');
+  }
+
+  showWarning() {
+    this.toastr.warning('You are being warned.', 'Alert!');
+  }
+
+  showInfo() {
+    this.toastr.info('Loaded');
+  }
+
+  onSubmit() {
+    this.teacher = this.teacherForm.value;
+    this.teacherService.AddTeacher(this.teacher).subscribe(
+      () => { this.teacherForm.reset() },
+      (error: any) => { this.showError(error) },
+      () => { this.showSuccess() });
+  }
+}
+

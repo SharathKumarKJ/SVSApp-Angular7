@@ -22,5 +22,10 @@ export class NavigationComponent {
     this.router.navigate(['/login']);
   }
 
+
+  OnMenuClick()
+  {
+    this.router.navigate(['/home']);
+  }
  
 }

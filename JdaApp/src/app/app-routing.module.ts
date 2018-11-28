@@ -7,7 +7,6 @@ import { SignUpComponent } from './user/sign-up/sign-up.component';
 import { SignInComponent } from './user/sign-in/sign-in.component';
 import { AuthGuard } from './auth/auth.guard';
 import { FormFieldComponent } from './form-field/form-field.component';
-import { TableComponent } from './table/table.component';
 import { DragDropComponent } from './drag-drop/drag-drop.component';
 import { TreeComponent } from './tree/tree.component';
 import { StudentComponent } from './student/student.component';
@@ -23,6 +22,7 @@ import { BrowseFeeDetailComponent } from './browse-fee-detail/browse-fee-detail.
 import { TeacherSubjectDetailComponent } from './teacher-subject-detail/teacher-subject-detail.component';
 import { BrowseTeacherSubjectDetailComponent } from './browse-teacher-subject-detail/browse-teacher-subject-detail.component';
 import { BrowseUserComponent } from './browse-user/browse-user.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
 
@@ -40,19 +40,20 @@ const routes: Routes = [
     path: '', redirectTo: '/login', pathMatch: 'full'
   },
 
-  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] ,
+  children: [{ path: '', component: DashboardComponent }]},
 
-  { path: 'navigation', component: NavigationComponent, canActivate: [AuthGuard] },
+  {
+    path: 'navigation', component: NavigationComponent, canActivate: [AuthGuard]
+   
+  },
 
   {
     path: 'shipping', component: NavigationComponent, canActivate: [AuthGuard],
     children: [{ path: '', component: FormFieldComponent }]
   },
 
-  {
-    path: 'browseShipping', component: NavigationComponent, canActivate: [AuthGuard],
-    children: [{ path: '', component: TableComponent }]
-  },
+ 
 
   {
     path: 'myWork', component: NavigationComponent, canActivate: [AuthGuard],
@@ -127,6 +128,10 @@ const routes: Routes = [
   {
     path: 'browseUser', component: NavigationComponent, canActivate: [AuthGuard],
     children: [{ path: '', component: BrowseUserComponent }]
+  },
+  {
+    path: 'dashBoard', component: NavigationComponent, canActivate: [AuthGuard],
+    children: [{ path: '', component: DashboardComponent }]
   },
 
 

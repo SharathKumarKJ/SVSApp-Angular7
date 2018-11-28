@@ -18,7 +18,6 @@ import { UserService } from './shared/user.service';
 import { AuthGuard } from './auth/auth.guard';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { FormFieldComponent } from './form-field/form-field.component';
-import { TableComponent } from './table/table.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { TreeComponent } from './tree/tree.component';
 import { DragDropComponent } from './drag-drop/drag-drop.component';
@@ -47,7 +46,7 @@ import { ToastrModule } from 'ngx-toastr';
     UserComponent,
     SignUpComponent,
     FormFieldComponent,
-    TableComponent,
+    
     DashboardComponent,
     TreeComponent,
     DragDropComponent,

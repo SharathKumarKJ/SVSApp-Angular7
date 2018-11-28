@@ -1,4 +1,4 @@
-import { Component,ViewContainerRef  } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, Validators, NgForm } from '@angular/forms';
 import { Class } from '../class-detail/class.model';
 import { ClassDetailService } from '../shared/class-detail.service';
@@ -90,9 +90,8 @@ export class StudentComponent {
 
   hasUnitNumber = false;
 
-  constructor(private fb: FormBuilder, private classService: ClassDetailService, private studentService: StudentService,private toastr: ToastrService) 
-  { 
-    
+  constructor(private fb: FormBuilder, private classService: ClassDetailService, private studentService: StudentService, private toastr: ToastrService) {
+
   }
   ngOnInit() {
 
@@ -100,11 +99,11 @@ export class StudentComponent {
   }
 
   showSuccess() {
-    this.toastr.success('Student has been added !', 'Success!');
+    this.toastr.success('Success!');
   }
 
-  showError() {
-    this.toastr.error('Unable to add student detail !', 'Oops!');
+  showError(error: any) {
+    this.toastr.error('Unable to add student detail ! ' + error, 'Oops!');
   }
 
   showWarning() {
@@ -114,19 +113,22 @@ export class StudentComponent {
   showInfo() {
     this.toastr.info('Just some information for you.');
   }
-  
+
   private GetClasses() {
     this.classService.getClasses().subscribe((data: any) => {
       this.classDetails = data;
-    });
+    },  (error: any) => { this.showError(error) });
   }
 
   onSubmit() {
     this.student = this.studentForm.value;
     this.student.ClassDetail = this.classDetails.find(x => x.ClassName == this.studentForm.value.ClassDetail);
-    this.studentService.AddStudent(this.student).subscribe((x: any) => {
-      this.showSuccess();
-      this.studentForm.reset();
-    });
-  }
+    this.studentService.AddStudent(this.student).subscribe(
+      (data:any) => {
+          // this.studentForm.reset();
+          // this.showSuccess();
+       },
+      (error: any) => { this.showError(""); });
+
+      } 
 }
