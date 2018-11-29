@@ -1,5 +1,11 @@
+
 import { Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, NgForm, FormControl } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+import { Fee } from './fee.model';
+import { StudentService } from '../shared/student.service';
+import { Student } from '../student/student.model';
+import { FeeService } from '../shared/fee.service';
 
 @Component({
   selector: 'app-fee-detail',
@@ -7,87 +13,73 @@ import { FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./fee-detail.component.scss'],
 })
 export class FeeDetailComponent {
-  addressForm = this.fb.group({
-    company: null,
-    firstName: [null, Validators.required],
-    lastName: [null, Validators.required],
-    address: [null, Validators.required],
-    address2: null,
-    city: [null, Validators.required],
-    state: [null, Validators.required],
-    postalCode: [null, Validators.compose([
-      Validators.required, Validators.minLength(5), Validators.maxLength(5)])
-    ],
-    shipping: ['free', Validators.required]
+  feeForm = this.fb.group({
+    Student: [null, Validators.required],
+    DueDate: [null, Validators.required],
+    PaidDate: [null, Validators.required],
+    TotalAmount: [null, Validators.required],
+    PaidAmount: [null, Validators.required],
+    BalanceAmount: new FormControl({ value: '00.00', disabled: true }, Validators.required),
   });
 
-  hasUnitNumber = false;
+  students: Student[];
 
-  states = [
-    {name: 'Alabama', abbreviation: 'AL'},
-    {name: 'Alaska', abbreviation: 'AK'},
-    {name: 'American Samoa', abbreviation: 'AS'},
-    {name: 'Arizona', abbreviation: 'AZ'},
-    {name: 'Arkansas', abbreviation: 'AR'},
-    {name: 'California', abbreviation: 'CA'},
-    {name: 'Colorado', abbreviation: 'CO'},
-    {name: 'Connecticut', abbreviation: 'CT'},
-    {name: 'Delaware', abbreviation: 'DE'},
-    {name: 'District Of Columbia', abbreviation: 'DC'},
-    {name: 'Federated States Of Micronesia', abbreviation: 'FM'},
-    {name: 'Florida', abbreviation: 'FL'},
-    {name: 'Georgia', abbreviation: 'GA'},
-    {name: 'Guam', abbreviation: 'GU'},
-    {name: 'Hawaii', abbreviation: 'HI'},
-    {name: 'Idaho', abbreviation: 'ID'},
-    {name: 'Illinois', abbreviation: 'IL'},
-    {name: 'Indiana', abbreviation: 'IN'},
-    {name: 'Iowa', abbreviation: 'IA'},
-    {name: 'Kansas', abbreviation: 'KS'},
-    {name: 'Kentucky', abbreviation: 'KY'},
-    {name: 'Louisiana', abbreviation: 'LA'},
-    {name: 'Maine', abbreviation: 'ME'},
-    {name: 'Marshall Islands', abbreviation: 'MH'},
-    {name: 'Maryland', abbreviation: 'MD'},
-    {name: 'Massachusetts', abbreviation: 'MA'},
-    {name: 'Michigan', abbreviation: 'MI'},
-    {name: 'Minnesota', abbreviation: 'MN'},
-    {name: 'Mississippi', abbreviation: 'MS'},
-    {name: 'Missouri', abbreviation: 'MO'},
-    {name: 'Montana', abbreviation: 'MT'},
-    {name: 'Nebraska', abbreviation: 'NE'},
-    {name: 'Nevada', abbreviation: 'NV'},
-    {name: 'New Hampshire', abbreviation: 'NH'},
-    {name: 'New Jersey', abbreviation: 'NJ'},
-    {name: 'New Mexico', abbreviation: 'NM'},
-    {name: 'New York', abbreviation: 'NY'},
-    {name: 'North Carolina', abbreviation: 'NC'},
-    {name: 'North Dakota', abbreviation: 'ND'},
-    {name: 'Northern Mariana Islands', abbreviation: 'MP'},
-    {name: 'Ohio', abbreviation: 'OH'},
-    {name: 'Oklahoma', abbreviation: 'OK'},
-    {name: 'Oregon', abbreviation: 'OR'},
-    {name: 'Palau', abbreviation: 'PW'},
-    {name: 'Pennsylvania', abbreviation: 'PA'},
-    {name: 'Puerto Rico', abbreviation: 'PR'},
-    {name: 'Rhode Island', abbreviation: 'RI'},
-    {name: 'South Carolina', abbreviation: 'SC'},
-    {name: 'South Dakota', abbreviation: 'SD'},
-    {name: 'Tennessee', abbreviation: 'TN'},
-    {name: 'Texas', abbreviation: 'TX'},
-    {name: 'Utah', abbreviation: 'UT'},
-    {name: 'Vermont', abbreviation: 'VT'},
-    {name: 'Virgin Islands', abbreviation: 'VI'},
-    {name: 'Virginia', abbreviation: 'VA'},
-    {name: 'Washington', abbreviation: 'WA'},
-    {name: 'West Virginia', abbreviation: 'WV'},
-    {name: 'Wisconsin', abbreviation: 'WI'},
-    {name: 'Wyoming', abbreviation: 'WY'}
-  ];
+  fee: Fee =
+    {
+      Id: 0,
+      Student: null,
+      DueDate: null,
+      PaidDate: null,
+      TotalAmount: 0,
+      PaidAmount: 0,
+      BalanceAmount: 0,
+    };
 
-  constructor(private fb: FormBuilder) {}
+
+
+  constructor(private fb: FormBuilder, private studentService: StudentService, private feeService: FeeService, private toastr: ToastrService) {
+
+  }
+  ngOnInit() {
+    this.GetStudents()
+
+  }
+
+  showSuccess() {
+    this.toastr.success('Success!');
+  }
+
+  showError(error: any) {
+    this.toastr.error('Unable to add student detail ! ' + error, 'Oops!');
+  }
+
+  showWarning() {
+    this.toastr.warning('You are being warned.', 'Alert!');
+  }
+
+  showInfo() {
+    this.toastr.info('Just some information for you.');
+  }
+
+  Calculate():number {
+    console.log("Calculated called...");
+    return this.fee.BalanceAmount = this.fee.TotalAmount - this.fee.PaidAmount;
+  }
+  private GetStudents() {
+    this.studentService.GetStudents().subscribe((data: any) => {
+      this.students = data;
+    }, (error: any) => { this.showError(error) });
+  }
+
+
 
   onSubmit() {
-    alert('Thanks!');
+    this.fee = this.feeForm.value;
+    this.fee.Student = this.students.find(x => x.FirstName == this.feeForm.value.Student);
+    this.feeService.AddFee(this.fee).subscribe(
+      (data: any) => { },
+      (error: any) => { this.showError(""); }
+    );
+
   }
 }

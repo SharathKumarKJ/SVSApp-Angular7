@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Response } from '@angular/http';
-import { observable, of, Observable } from 'rxjs';
+import { of, Observable } from 'rxjs';
 import { User } from './user.model';
 import { RootURL } from './RootURL.model';
 import { tap, catchError } from 'rxjs/operators';
@@ -34,8 +33,7 @@ export class UserService {
     }
     var reqHeader = new HttpHeaders({ 'No-Auth': 'True' });
     return this.httpClient.post(RootURL.URl + '/api/User/Register', body, { headers: reqHeader })
-      .pipe(tap((user: User) => {
-
+      .pipe(tap(() => {
         console.log("Register Successfully...");
         this.showSuccess();
       }),
@@ -47,7 +45,7 @@ export class UserService {
     var data = "username=" + userName + "&password=" + password + "&grant_type=password";
     var reqHeader = new HttpHeaders({ 'Content-Type': 'application/x-www-urlencoded', 'No-Auth': 'True' });
     return this.httpClient.post(RootURL.URl + '/token', data, { headers: reqHeader })
-      .pipe(tap((user: User) => console.log("Authentication successful...")),
+      .pipe(tap(() => console.log("Authentication successful...")),
         catchError(this.handleError<User>('Authentication')));
   }
 
