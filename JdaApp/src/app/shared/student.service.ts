@@ -19,13 +19,17 @@ export class StudentService {
   }
 
   showError(error: any) {
-    this.toastr.error('Error : ' + error.error.ExceptionMessage+ error.error.ExceptionType);
+    this.toastr.error('Error : ' + error.error.ExceptionMessage + error.error.ExceptionType);
   }
 
   AddStudent(student: Student) {
     var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
     return this.httpClient.post(RootURL.URl + '/api/Students', student, { headers: reqHeader })
-      .pipe(tap((student: Student) => console.log("Student Id : " + student.Id + " Added successfully")),
+      .pipe(tap((student: Student) => {
+        console.log("Student Id : " + student.Id + " Added successfully");
+        this.showSuccess();
+      }
+      ),
         catchError(this.handleError<Student>('addStudent')));
   }
 

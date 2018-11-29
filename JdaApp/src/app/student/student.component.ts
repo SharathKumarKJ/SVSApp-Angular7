@@ -124,10 +124,7 @@ export class StudentComponent {
     this.student = this.studentForm.value;
     this.student.ClassDetail = this.classDetails.find(x => x.ClassName == this.studentForm.value.ClassDetail);
     this.studentService.AddStudent(this.student).subscribe(
-      (data:any) => {
-          // this.studentForm.reset();
-          // this.showSuccess();
-       },
+      (data:any) => {},
       (error: any) => { this.showError(""); });
 
       } 
