@@ -24,6 +24,7 @@ import { BrowseTeacherSubjectDetailComponent } from './browse-teacher-subject-de
 import { BrowseUserComponent } from './browse-user/browse-user.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { PhotoGalleryComponent } from './photo-gallery/photo-gallery.component';
+import { CalendarComponent } from './calendar/calendar.component';
 
 const routes: Routes = [
 
@@ -138,6 +139,11 @@ const routes: Routes = [
     path: 'photo', component: NavigationComponent, canActivate: [AuthGuard],
     children: [{ path: '', component: PhotoGalleryComponent }]
   },
+  {
+    path: 'calendar', component: NavigationComponent, canActivate: [AuthGuard],
+    children: [{ path: '', component: CalendarComponent }]
+  },
+
 
 
 

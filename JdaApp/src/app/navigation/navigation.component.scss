@@ -60,3 +60,11 @@ h1.example-app-name {
 {
   font-size: 12px;
 }
+
+.remaining-space
+{
+  position: absolute;
+  left: 80%;
+  top: 20%;
+  z-index: -1;
+}

@@ -38,7 +38,13 @@ import { BrowseUserComponent } from './browse-user/browse-user.component';
 import { ToastrModule } from 'ngx-toastr';
 import { PhotoGalleryComponent } from './photo-gallery/photo-gallery.component';
 import { NgxGalleryModule } from 'ngx-gallery';
-
+import { CalendarComponent } from './calendar/calendar.component';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { CommonModule } from '@angular/common';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import 'flatpickr/dist/flatpickr.css';
+import { FlatpickrModule } from 'angularx-flatpickr';
 
 @NgModule({
   declarations: [
@@ -49,7 +55,7 @@ import { NgxGalleryModule } from 'ngx-gallery';
     UserComponent,
     SignUpComponent,
     FormFieldComponent,
-    
+
     DashboardComponent,
     TreeComponent,
     DragDropComponent,
@@ -67,6 +73,7 @@ import { NgxGalleryModule } from 'ngx-gallery';
     BrowseFeeDetailComponent,
     BrowseUserComponent,
     PhotoGalleryComponent,
+    CalendarComponent,
   ],
   imports: [
     BrowserModule,
@@ -95,6 +102,13 @@ import { NgxGalleryModule } from 'ngx-gallery';
     MatTreeModule,
     DragDropModule,
     NgxGalleryModule,
+    NgbModalModule,
+    CommonModule,
+    FlatpickrModule.forRoot(),
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory
+    }),
     ToastrModule.forRoot()
   ],
   providers: [UserService, AuthGuard,
