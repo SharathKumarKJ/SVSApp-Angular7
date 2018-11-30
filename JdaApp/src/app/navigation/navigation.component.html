@@ -1,66 +1,119 @@
-<mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #drawer class="sidenav" fixedInViewport="true" [attr.role]="(!isHandset$ | async) ? 'dialog' : 'navigation'"
-    [mode]="(isHandset$ | async) ? 'over' : 'over'" [opened]="!(isHandset$ | async)">
-    <mat-toolbar color="primary">
-    </mat-toolbar>
-    <mat-nav-list>
-    
-      <a  mat-list-item [matMenuTriggerFor]="Student">Student</a>
-      <mat-menu #Student="matMenu" yPosition="above">
-        <a mat-menu-item routerLink="/student">Create</a>
-        <a mat-menu-item routerLink="/browseStudent">Browse</a>
+<div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
+  <mat-toolbar color="primary" class="example-toolbar">
+    <button mat-icon-button (click)="snav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <h1 class="pointerCursor example-app-name" (click)="OnMenuClick()">SVS App</h1>
+    <div class="example-fill-remaining-space">
+      <i class="material-icons dp48 pointerCursor" [matMenuTriggerFor]="profile">person </i>
+
+
+      <mat-menu #profile="matMenu">
+        <button mat-menu-item [matMenuTriggerFor]="setting">Setting</button>
+        <button mat-menu-item [matMenuTriggerFor]="invertebrates">Invertebrates</button>
+        <button mat-menu-item (click)="Logout()">Logout</button>
       </mat-menu>
 
-      <a mat-list-item [matMenuTriggerFor]="Teacher">Teacher</a>
-      <mat-menu #Teacher="matMenu">
-        <a mat-menu-item routerLink="/teacher">Create</a>
-        <a mat-menu-item routerLink="/browseTeacher">Browse</a>
+      <mat-menu #setting="matMenu">
+        <button mat-menu-item [matMenuTriggerFor]="fish">Profile Setting</button>
+        <button mat-menu-item [matMenuTriggerFor]="amphibians">Account Setting</button>
+        <button mat-menu-item [matMenuTriggerFor]="reptiles">Reports</button>
+
       </mat-menu>
 
-      <a mat-list-item [matMenuTriggerFor]="Subject">Subject</a>
-      <mat-menu #Subject="matMenu">
-        <a mat-menu-item routerLink="/subject">Create</a>
-        <a mat-menu-item routerLink="/browseSubject">Browse</a>
+      <mat-menu #invertebrates="matMenu">
+        <button mat-menu-item>Insects</button>
+        <button mat-menu-item>Molluscs</button>
+        <button mat-menu-item>Crustaceans</button>
+        <button mat-menu-item>Corals</button>
+        <button mat-menu-item>Arachnids</button>
+        <button mat-menu-item>Velvet worms</button>
+        <button mat-menu-item>Horseshoe crabs</button>
       </mat-menu>
 
-      <a mat-list-item [matMenuTriggerFor]="Class">Class</a>
-      <mat-menu #Class="matMenu">
-        <a mat-menu-item routerLink="/class">Create</a>
-        <a mat-menu-item routerLink="/browseClass">Browse</a>
+      <mat-menu #fish="matMenu">
+        <button mat-menu-item>Baikal oilfish</button>
+        <button mat-menu-item>Bala shark</button>
+        <button mat-menu-item>Ballan wrasse</button>
+        <button mat-menu-item>Bamboo shark</button>
+        <button mat-menu-item>Banded killifish</button>
       </mat-menu>
 
-      <a mat-list-item [matMenuTriggerFor]="Fee">Fee</a>
-      <mat-menu #Fee="matMenu">
-        <a mat-menu-item routerLink="/fee">Create</a>
-        <a mat-menu-item routerLink="/browseFee">Browse</a>
+      <mat-menu #amphibians="matMenu">
+        <button mat-menu-item>Sonoran desert toad</button>
+        <button mat-menu-item>Western toad</button>
+        <button mat-menu-item>Arroyo toad</button>
+        <button mat-menu-item>Yosemite toad</button>
       </mat-menu>
 
-      <a mat-list-item [matMenuTriggerFor]="TeacherSubject">Teacher Subject</a>
-      <mat-menu #TeacherSubject="matMenu">
-        <a mat-menu-item routerLink="/teacherSubjectDetail">Create</a>
-        <a mat-menu-item routerLink="/browseTeacherSubjectDetail">Browse</a>
+      <mat-menu #reptiles="matMenu">
+        <button mat-menu-item>Banded Day Gecko</button>
+        <button mat-menu-item>Banded Gila Monster</button>
+        <button mat-menu-item>Black Tree Monitor</button>
+        <button mat-menu-item>Blue Spiny Lizard</button>
+        <button mat-menu-item disabled>Velociraptor</button>
       </mat-menu>
 
-      <a mat-list-item [matMenuTriggerFor]="Other">Other</a>
-      <mat-menu  #Other="matMenu">
-        <a mat-menu-item routerLink="/myFolder">My Folder</a>
-        <a mat-menu-item routerLink="/myWork">My Work</a>
-      </mat-menu>
+    </div>
+  </mat-toolbar>
+  <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+    <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches"
+      fixedTopGap="56">
+      <mat-nav-list>
+        <a mat-list-item [matMenuTriggerFor]="Student">Student</a>
+        <mat-menu #Student="matMenu" yPosition="above">
+          <a mat-menu-item routerLink="/student">Create</a>
+          <a mat-menu-item routerLink="/browseStudent">Browse</a>
+        </mat-menu>
 
-    </mat-nav-list>
+        <a mat-list-item [matMenuTriggerFor]="Teacher">Teacher</a>
+        <mat-menu #Teacher="matMenu">
+          <a mat-menu-item routerLink="/teacher">Create</a>
+          <a mat-menu-item routerLink="/browseTeacher">Browse</a>
+        </mat-menu>
 
+        <a mat-list-item [matMenuTriggerFor]="Subject">Subject</a>
+        <mat-menu #Subject="matMenu">
+          <a mat-menu-item routerLink="/subject">Create</a>
+          <a mat-menu-item routerLink="/browseSubject">Browse</a>
+        </mat-menu>
 
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <mat-toolbar color="primary">
-      <button type="button" aria-label="Toggle sidenav" mat-icon-button (mouseover)="drawer.toggle()">
-        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-      </button>
-      <div class="pointerCursor" (click)="OnMenuClick()"><span>SVS App</span></div>
-      <div class="example-fill-remaining-space">
-        <i class="material-icons dp48 pointerCursor" (click)="Logout()">account_box</i>
-      </div>
-    </mat-toolbar>
-    <router-outlet></router-outlet>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+        <a mat-list-item [matMenuTriggerFor]="Class">Class</a>
+        <mat-menu #Class="matMenu">
+          <a mat-menu-item routerLink="/class">Create</a>
+          <a mat-menu-item routerLink="/browseClass">Browse</a>
+        </mat-menu>
+
+        <a mat-list-item [matMenuTriggerFor]="Fee">Fee</a>
+        <mat-menu #Fee="matMenu">
+          <a mat-menu-item routerLink="/fee">Create</a>
+          <a mat-menu-item routerLink="/browseFee">Browse</a>
+        </mat-menu>
+
+        <a mat-list-item [matMenuTriggerFor]="TeacherSubject">Teacher Subject</a>
+        <mat-menu #TeacherSubject="matMenu">
+          <a mat-menu-item routerLink="/teacherSubjectDetail">Create</a>
+          <a mat-menu-item routerLink="/browseTeacherSubjectDetail">Browse</a>
+        </mat-menu>
+
+        <a mat-list-item [matMenuTriggerFor]="Other">Other</a>
+        <mat-menu #Other="matMenu">
+          <a mat-menu-item routerLink="/myFolder">My Folder</a>
+          <a mat-menu-item routerLink="/myWork">My Work</a>
+        </mat-menu>
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+  <mat-toolbar class="example-footer">
+    <p class="copy-right"> © Copyright © 2018 SVS School Software, Inc. ALL RIGHTS RESERVED. </p>
+    <div class="example-fill-remaining-space">
+      <a class="material-icons dp48" routerLink="/photo" >photo_library</a>
+      <span class="copy-right">Photo Library</span>
+    </div>
+  </mat-toolbar>
+</div>

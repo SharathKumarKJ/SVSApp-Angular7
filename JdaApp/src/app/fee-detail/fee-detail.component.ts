@@ -1,5 +1,5 @@
 
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, NgForm, FormControl } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Fee } from './fee.model';
@@ -7,12 +7,14 @@ import { StudentService } from '../shared/student.service';
 import { Student } from '../student/student.model';
 import { FeeService } from '../shared/fee.service';
 
+declare var $: any;
 @Component({
   selector: 'app-fee-detail',
   templateUrl: './fee-detail.component.html',
   styleUrls: ['./fee-detail.component.scss'],
 })
-export class FeeDetailComponent {
+export class FeeDetailComponent implements OnInit {
+
   feeForm = this.fb.group({
     Student: [null, Validators.required],
     DueDate: [null, Validators.required],
@@ -41,6 +43,19 @@ export class FeeDetailComponent {
 
   }
   ngOnInit() {
+
+    $("#PaidAmount").change(function () {
+      var totalAmount = parseInt($('#TotalAmount').val());
+      var paidAmount = parseInt($('#PaidAmount').val());
+      $('#BalanceAmount').val(totalAmount - paidAmount);
+    });
+    $("#TotalAmount").change(function () {
+      var totalAmount = parseInt($('#TotalAmount').val());
+      var paidAmount = parseInt($('#PaidAmount').val());
+      $('#BalanceAmount').val(totalAmount - paidAmount);
+    });
+
+
     this.GetStudents()
 
   }
@@ -61,7 +76,7 @@ export class FeeDetailComponent {
     this.toastr.info('Just some information for you.');
   }
 
-  Calculate():number {
+  Calculate(): number {
     console.log("Calculated called...");
     return this.fee.BalanceAmount = this.fee.TotalAmount - this.fee.PaidAmount;
   }
@@ -70,9 +85,6 @@ export class FeeDetailComponent {
       this.students = data;
     }, (error: any) => { this.showError(error) });
   }
-
-
-
   onSubmit() {
     this.fee = this.feeForm.value;
     this.fee.Student = this.students.find(x => x.FirstName == this.feeForm.value.Student);

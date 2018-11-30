@@ -23,6 +23,7 @@ import { TeacherSubjectDetailComponent } from './teacher-subject-detail/teacher-
 import { BrowseTeacherSubjectDetailComponent } from './browse-teacher-subject-detail/browse-teacher-subject-detail.component';
 import { BrowseUserComponent } from './browse-user/browse-user.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { PhotoGalleryComponent } from './photo-gallery/photo-gallery.component';
 
 const routes: Routes = [
 
@@ -133,6 +134,11 @@ const routes: Routes = [
     path: 'dashBoard', component: NavigationComponent, canActivate: [AuthGuard],
     children: [{ path: '', component: DashboardComponent }]
   },
+  {
+    path: 'photo', component: NavigationComponent, canActivate: [AuthGuard],
+    children: [{ path: '', component: PhotoGalleryComponent }]
+  },
+
 
 
 

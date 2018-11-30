@@ -9,8 +9,8 @@
           <mat-form-field class="full-width">
             <mat-select placeholder="Student " formControlName="Student">
               <mat-option *ngFor="let student of students" [value]="student.FirstName">
-                 <span>Name : </span> {{student.FirstName +" "+ student.LastName  }} 
-                 <span>Class Name : </span> {{student.ClassDetail.ClassName}}
+                <span>Name : </span> {{student.FirstName +" "+ student.LastName }}
+                <span>Class Name : </span> {{student.ClassDetail.ClassName}}
               </mat-option>
             </mat-select>
             <mat-error *ngIf="feeForm.controls['Student'].hasError('required')">
@@ -42,7 +42,7 @@
         </div>
         <div class="col">
           <mat-form-field class="full-width">
-            <input matInput type="number" placeholder="Total Amount" formControlName="TotalAmount">
+            <input id="TotalAmount" matInput type="number" placeholder="Total Amount" formControlName="TotalAmount">
             <mat-error *ngIf="feeForm.controls['TotalAmount'].hasError('required')">
               Total Amount is <strong>required</strong>
             </mat-error>
@@ -52,7 +52,7 @@
       <div class="row">
         <div class="col">
           <mat-form-field class="full-width">
-            <input matInput type="number" placeholder="Paid Amount" formControlName="PaidAmount" >
+            <input id="PaidAmount" matInput type="number" placeholder="Paid Amount" formControlName="PaidAmount">
             <mat-error *ngIf="feeForm.controls['PaidAmount'].hasError('required')">
               Paid Amount is <strong>required</strong>
             </mat-error>
@@ -60,10 +60,9 @@
         </div>
         <div class="col">
             <mat-form-field class="full-width">
-              <input matInput type="number" placeholder="Balance Amount" formControlName="BalanceAmount" >
-            
-            </mat-form-field>
-          </div>
+                <input id="BalanceAmount" matInput type="number" placeholder="Balance Amount" formControlName="BalanceAmount">
+              </mat-form-field>
+        </div>
       </div>
     </mat-card-content>
     <mat-card-actions>

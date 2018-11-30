@@ -36,6 +36,9 @@ import { FeeDetailComponent } from './fee-detail/fee-detail.component';
 import { BrowseFeeDetailComponent } from './browse-fee-detail/browse-fee-detail.component';
 import { BrowseUserComponent } from './browse-user/browse-user.component';
 import { ToastrModule } from 'ngx-toastr';
+import { PhotoGalleryComponent } from './photo-gallery/photo-gallery.component';
+import { NgxGalleryModule } from 'ngx-gallery';
+
 
 @NgModule({
   declarations: [
@@ -62,7 +65,8 @@ import { ToastrModule } from 'ngx-toastr';
     BrowseTeacherSubjectDetailComponent,
     FeeDetailComponent,
     BrowseFeeDetailComponent,
-    BrowseUserComponent
+    BrowseUserComponent,
+    PhotoGalleryComponent,
   ],
   imports: [
     BrowserModule,
@@ -90,6 +94,7 @@ import { ToastrModule } from 'ngx-toastr';
     MatMenuModule,
     MatTreeModule,
     DragDropModule,
+    NgxGalleryModule,
     ToastrModule.forRoot()
   ],
   providers: [UserService, AuthGuard,
