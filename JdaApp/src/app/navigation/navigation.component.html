@@ -55,6 +55,9 @@
       </mat-menu>
 
     </div>
+    <div class="welcomeHeader novfont-size">
+      <p><b>Welcome :  {{userClaim.FirstName +' '+ userClaim.LastName}} </b>&nbsp;&nbsp; <i>Email : {{ userClaim.Email }}&nbsp;&nbsp; Logged On :{{userClaim.LoggedOn}}</i></p>
+    </div>
   </mat-toolbar>
   <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
     <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches"
@@ -110,12 +113,13 @@
     </mat-sidenav-content>
   </mat-sidenav-container>
   <mat-toolbar class="example-footer">
-    <p class="copy-right"> © Copyright © 2018 SVS School Software, Inc. ALL RIGHTS RESERVED. </p>
+    <p class="novfont-size"> © Copyright © 2018 SVS Software, Inc. ALL RIGHTS RESERVED. </p>
+    <span class="currentSystemDate novfont-size" id='ct'></span>
     <div class="remaining-space">
       <a class="material-icons dp48" routerLink="/photo">photo_library</a>
-      <span class="copy-right">Photo Library</span>
+      <span class="novfont-size">Photo Library</span>
       <a class="material-icons dp48" routerLink="/calendar">date_range</a>
-      <span class="copy-right">Calendar</span>
+      <span class="novfont-size">Calendar</span>
     </div>
   </mat-toolbar>
 </div>

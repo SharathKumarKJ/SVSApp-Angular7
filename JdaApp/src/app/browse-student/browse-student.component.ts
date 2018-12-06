@@ -3,6 +3,7 @@ import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { StudentService } from '../shared/student.service';
 import { Student } from '../student/student.model';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-browse-student',
@@ -25,6 +26,7 @@ export class BrowseStudentComponent implements OnInit {
   isLoadingResults = true;
   columnsToDisplay: string[] =
     [
+      'select',
       'Id',
       'Name',
       'FatherName',
@@ -39,6 +41,9 @@ export class BrowseStudentComponent implements OnInit {
 
   dataSource: MatTableDataSource<Student>;
 
+  selection: SelectionModel<Student>;
+
+
   constructor(private studentService: StudentService) { }
 
   ngOnInit() {
@@ -49,11 +54,26 @@ export class BrowseStudentComponent implements OnInit {
       this.dataSource.sort = this.sort;
     });
 
+    this.selection = new SelectionModel<Student>(true, []);
+
   }
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+  }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+    this.isAllSelected() ?
+      this.selection.clear() :
+      this.dataSource.data.forEach(row => this.selection.select(row));
   }
 }

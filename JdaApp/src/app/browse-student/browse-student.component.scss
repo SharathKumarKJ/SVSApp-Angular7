@@ -3,12 +3,11 @@ table {
 }
 .mat-form-field {
   font-size: 14px;
-  width: 100%;
+  width: 60%;
 }
 .center {
   margin: auto;
-  width: 80%;
-  height: 80%;
+  width: 60%;
 }
 .full-width {
   margin: auto;
@@ -84,4 +83,13 @@ tr.example-element-row:not(.example-expanded-row):active {
 
 th.mat-sort-header-sorted {
   color: black;
+}
+
+
+.remaining-space
+{
+  position: absolute;
+  left: 90%;
+  top: 10%;
+  z-index: -1;
 }

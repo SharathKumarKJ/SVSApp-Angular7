@@ -1,6 +1,12 @@
-<mat-form-field>
-    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-  </mat-form-field>
+<div>
+    <input class="mat-form-field" matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+    &nbsp; <button mat-raised-button color="primary" type="Edit">Edit</button>
+    &nbsp; <button mat-raised-button color="primary" type="Delete">Delete</button>
+    &nbsp;
+    &nbsp; <button mat-raised-button color="primary" type="Edit">Refresh</button>
+    &nbsp; <button mat-raised-button color="primary" type="Delete">Report Export</button>
+    &nbsp;&nbsp;
+  </div>
   
   <div class="example-container mat-elevation-z8">
       <div class="example-loading-shade"
@@ -10,7 +16,21 @@
     
   <div class="example-table-container  mat-elevation-z8">
     <table mat-table [dataSource]="dataSource"  multiTemplateDataRows >
-  
+    <!-- Checkbox Column -->
+    <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef>
+          <mat-checkbox (change)="$event ? masterToggle() : null"
+                        [checked]="selection.hasValue() && isAllSelected()"
+                        [indeterminate]="selection.hasValue() && !isAllSelected()">
+          </mat-checkbox>
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox (click)="$event.stopPropagation()"
+                        (change)="$event ? selection.toggle(row) : null"
+                        [checked]="selection.isSelected(row)">
+          </mat-checkbox>
+        </td>
+      </ng-container>
       <ng-container matColumnDef="Id">
         <th mat-header-cell *matHeaderCellDef >Id</th>
         <td mat-cell *matCellDef="let element"> {{element.Id}} </td>

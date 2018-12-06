@@ -9,8 +9,9 @@
           <mat-form-field class="full-width">
             <mat-select placeholder="Student " formControlName="Student">
               <mat-option *ngFor="let student of students" [value]="student.FirstName">
-                <span>Name : </span> {{student.FirstName +" "+ student.LastName }}
-                <span>Class Name : </span> {{student.ClassDetail.ClassName}}
+                {{student.FirstName +" "+ student.LastName }} |
+                {{student.ClassDetail.ClassName}} |
+                {{student.FatherName}}
               </mat-option>
             </mat-select>
             <mat-error *ngIf="feeForm.controls['Student'].hasError('required')">
