@@ -7,4 +7,5 @@ export class TeacherSubject {
     Teacher: Teacher
     Subject: Subject
     ClassDetail: Class;
+    IsActive: boolean;
 }

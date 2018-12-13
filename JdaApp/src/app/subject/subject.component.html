@@ -1,4 +1,4 @@
-<form #subjectForm="ngForm" (ngSubmit)="OnSubmit(subjectForm)">
+<form [formGroup]="subjectForm" novalidate (ngSubmit)="OnSubmit()">
   <mat-card class="shipping-card">
     <mat-card-header>
       <mat-card-title>Subject Information</mat-card-title>
@@ -6,9 +6,17 @@
     <mat-card-content>
       <div class="row">
         <div class="col">
-          <mat-form-field class="full-width">
-            <input matInput placeholder="Subject Name" class="validate"  name="SubjectName" #SubjectName="ngModel" [(ngModel)]="subject.SubjectName"/>
-          </mat-form-field>
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Subject Name" formControlName="SubjectName">
+              <mat-error *ngIf="subjectForm.controls['SubjectName'].hasError('required')">
+                Subject is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col">
+          <mat-checkbox formControlName="IsActive">Is Active</mat-checkbox>
         </div>
       </div>
     </mat-card-content>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormControl } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Teacher } from './teacher.model';
 import { TeacherService } from '../shared/teacher.service';
@@ -30,7 +30,8 @@ export class TeacherComponent {
       Validators.required, Validators.minLength(6), Validators.maxLength(6)])
     ],
     Gender: ['Male', Validators.required],
-    Nationality: ['Indian', Validators.required]
+    Nationality: ['Indian', Validators.required],
+    IsActive: new FormControl({ value: true, disabled: true }, Validators.required),
   });
 
   hasUnitNumber = false;
@@ -85,7 +86,7 @@ export class TeacherComponent {
       City: null,
       State: null,
       PostalCode: null,
-
+      IsActive:true
     };
 
   constructor(private fb: FormBuilder, private teacherService: TeacherService, private toastr: ToastrService) { }

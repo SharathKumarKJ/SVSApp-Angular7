@@ -18,6 +18,7 @@ export class Teacher {
     City: string;
     State: string;
     PostalCode: string;
+    IsActive :boolean;
   
   
 }

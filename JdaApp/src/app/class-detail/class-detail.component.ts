@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, NgForm } from '@angular/forms';
+import { FormBuilder, NgForm, FormControl, Validators } from '@angular/forms';
 import { Class } from './class.model';
 import { ClassDetailService } from '../shared/class-detail.service';
 import { ToastrService } from 'ngx-toastr';
@@ -10,15 +10,17 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./class-detail.component.scss'],
 })
 export class ClassDetailComponent {
-  addressForm = this.fb.group({
-    company: null,
+  classForm = this.fb.group({
+    ClassName: null,
+    IsActive: new FormControl({ value: true, disabled: true }, Validators.required),
 
   });
 
   classDetail: Class =
     {
       Id: 0,
-      ClassName: " "
+      ClassName: " ",
+      IsActive: true,
     };
 
 
@@ -40,22 +42,11 @@ export class ClassDetailComponent {
     this.toastr.info('Just some information for you.');
   }
 
-  OnSubmit(form: NgForm) {
-
+  OnSubmit() {
+    this.classDetail = this.classForm.value;
     this.classDetailService.AddClassDetail(this.classDetail).subscribe(
-      () => { this.resetForm(form) },
+      () => { this.classForm.reset() },
       (error: any) => { this.showError(error) },
-      () => { this.showSuccess() }
-    );
+      () => { this.showSuccess() });
   }
-
-  resetForm(form?: NgForm) {
-    if (form != null)
-      this.classDetail =
-        {
-          Id: 0,
-          ClassName: '',
-        }
-  }
-
 }

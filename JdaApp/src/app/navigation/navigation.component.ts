@@ -26,7 +26,6 @@ export class NavigationComponent implements OnDestroy, OnInit {
   ngOnInit(): void {
     this.userService.getUserClaims().subscribe((data: any) => {
       this.userClaim = data;
-      console.log(this.userClaim);
     });
   }
   mobileQuery: MediaQueryList;

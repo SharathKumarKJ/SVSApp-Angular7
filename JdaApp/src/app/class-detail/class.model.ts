@@ -1,5 +1,6 @@
-export class Class{
+export class Class {
 
-    Id :number;
-    ClassName :string;
+    Id: number;
+    ClassName: string;
+    IsActive: boolean;
 }

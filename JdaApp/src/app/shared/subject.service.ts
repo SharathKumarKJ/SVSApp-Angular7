@@ -23,12 +23,9 @@ export class SubjectService {
     this.toastr.error('Error : ' + error.error.ExceptionMessage + error.error.ExceptionType);
   }
   AddSubejct(subject: Subject) {
-    const body: Subject = {
-      Id: subject.Id,
-      SubjectName: subject.SubjectName,
-    }
+   
     var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
-    return this.httpClient.post(RootURL.URl + '/api/Subjects', body, { headers: reqHeader })
+    return this.httpClient.post(RootURL.URl + '/api/Subjects', subject, { headers: reqHeader })
       .pipe(tap((subject: Subject) => {
         console.log("Subject Id : " + subject.Id + " Added successfully");
         this.showSuccess();

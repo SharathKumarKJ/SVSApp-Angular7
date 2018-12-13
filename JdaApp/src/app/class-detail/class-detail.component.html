@@ -1,4 +1,4 @@
-<form #classForm="ngForm" (ngSubmit)="OnSubmit(classForm)">
+<form [formGroup]="classForm" novalidate (ngSubmit)="OnSubmit()">
   <mat-card class="shipping-card">
     <mat-card-header>
       <mat-card-title>Class Information</mat-card-title>
@@ -7,8 +7,14 @@
       <div class="row">
         <div class="col">
           <mat-form-field class="full-width">
-            <input matInput placeholder="Class Name" class="validate"  name="ClassName" #ClassName="ngModel" [(ngModel)]="classDetail.ClassName"/>
+            <input matInput placeholder="Class Name" formControlName="ClassName">
+            <mat-error *ngIf="classForm.controls['ClassName'].hasError('required')">
+              Class Name is <strong>required</strong>
+            </mat-error>
           </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-checkbox formControlName="IsActive">Is Active</mat-checkbox>
         </div>
       </div>
     </mat-card-content>

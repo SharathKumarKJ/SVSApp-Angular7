@@ -45,6 +45,7 @@ import { CommonModule } from '@angular/common';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import 'flatpickr/dist/flatpickr.css';
 import { FlatpickrModule } from 'angularx-flatpickr';
+import { SampleComponent } from './sample/sample.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +75,7 @@ import { FlatpickrModule } from 'angularx-flatpickr';
     BrowseUserComponent,
     PhotoGalleryComponent,
     CalendarComponent,
+    SampleComponent,
   ],
   imports: [
     BrowserModule,

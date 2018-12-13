@@ -1,6 +1,6 @@
 
 import { Component } from '@angular/core';
-import { FormBuilder, Validators, NgForm } from '@angular/forms';
+import { FormBuilder, Validators, NgForm, FormControl } from '@angular/forms';
 import { Class } from '../class-detail/class.model';
 import { ClassDetailService } from '../shared/class-detail.service';
 import { ToastrService } from 'ngx-toastr';
@@ -21,7 +21,8 @@ export class TeacherSubjectDetailComponent {
   teacherSubjectForm = this.fb.group({
     Teacher: [null, Validators.required],
     Subject: [null, Validators.required],
-    ClassDetail: [null, Validators.required]
+    ClassDetail: [null, Validators.required],
+    IsActive: new FormControl({ value: true, disabled: true }, Validators.required),
   });
 
   classDetails: Class[];
@@ -33,7 +34,8 @@ export class TeacherSubjectDetailComponent {
       Id: 0,
       Teacher: null,
       Subject: null,
-      ClassDetail: null
+      ClassDetail: null,
+      IsActive:true
     };
 
 

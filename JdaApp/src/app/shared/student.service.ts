@@ -12,6 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class StudentService {
 
+
   constructor(private httpClient: HttpClient, private toastr: ToastrService) { }
 
   showSuccess() {
@@ -33,10 +34,31 @@ export class StudentService {
         catchError(this.handleError<Student>('addStudent')));
   }
 
+  UpdateStudent(student: Student): any {
+    console.log(student.Id);
+    var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
+    return this.httpClient.put(RootURL.URl + '/api/Students/' + student.Id, student, { headers: reqHeader })
+      .pipe(tap((student: Student) => {
+        this.showSuccess();
+      }
+      ),
+        catchError(this.handleError<Student>('UpdateStudent')));
+  }
+
+
+
   GetStudents(): Observable<Student[]> {
     return this.httpClient.get<Student[]>(RootURL.URl + '/api/Students')
       .pipe(tap(() => console.log('Fetched Students')),
         catchError(this.handleError('GetStudent', [])));
+  }
+
+  GetStudent(id: number): Observable<Student> {
+    const url = `${RootURL.URl + "/api/Students"}/${id}`;
+    return this.httpClient.get<Student>(url)
+      .pipe(tap(() => console.log('Fetched Student')),
+        catchError(this.handleError<Student>(`Get Student id=${id}`))
+      );
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { FormBuilder, Validators, NgForm } from '@angular/forms';
+import { FormBuilder, Validators, NgForm, FormControl, FormGroup } from '@angular/forms';
 import { Class } from '../class-detail/class.model';
 import { ClassDetailService } from '../shared/class-detail.service';
 import { Student } from './student.model';
 import { StudentService } from '../shared/student.service';
 import { ToastrService } from 'ngx-toastr';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-student',
@@ -12,27 +13,8 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./student.component.scss'],
 })
 export class StudentComponent {
-  studentForm = this.fb.group({
-    FirstName: [null, Validators.required],
-    LastName: [null, Validators.required],
-    FatherName: [null, Validators.required],
-    MotherName: [null, Validators.required],
-    FatherMobileNumber: [null, Validators.required],
-    MotherMobileNumber: [null, Validators.required],
-    STSCode: [null, Validators.required],
-    CasteName: [null, Validators.required],
-    DateofBirth: [null, Validators.required],
-    ClassDetail: [null, Validators.required],
-    Address1: [null, Validators.required],
-    Address2: null,
-    City: [null, Validators.required],
-    State: [null, Validators.required],
-    PostalCode: [null, Validators.compose([
-      Validators.required, Validators.minLength(6), Validators.maxLength(6)])
-    ],
-    Gender: ['Male', Validators.required],
-    Nationality: ['Indian', Validators.required]
-  });
+
+  studentForm: FormGroup;
 
   classDetails: Class[];
 
@@ -76,7 +58,7 @@ export class StudentComponent {
       FatherMobileNumber: null,
       MotherMobileNumber: null,
       STSCode: null,
-      Caste: null,
+      CasteName: null,
       DateofBirth: null,
       ClassDetail: null,
       Address1: null,
@@ -85,17 +67,25 @@ export class StudentComponent {
       State: null,
       PostalCode: null,
       Gender: null,
-      Nationality: null
+      Nationality: null,
+      IsActive: true
     };
 
-  hasUnitNumber = false;
+  IsEdit = false;
 
-  constructor(private fb: FormBuilder, private classService: ClassDetailService, private studentService: StudentService, private toastr: ToastrService) {
-
+  constructor(private route: ActivatedRoute, private fb: FormBuilder, private classService: ClassDetailService, private studentService: StudentService, private toastr: ToastrService) {
   }
-  ngOnInit() {
 
-    this.GetClasses();
+  ngOnInit() {
+    const id = + this.route.snapshot.paramMap.get('Id');
+    if (id > 0) {
+      this.IsEdit = true;
+      this.FillDefaultvaluesForForm();
+      this.GetStudent(id);
+    }
+    else {
+      this.FillDefaultvaluesForForm();
+    }
   }
 
   showSuccess() {
@@ -117,15 +107,90 @@ export class StudentComponent {
   private GetClasses() {
     this.classService.getClasses().subscribe((data: any) => {
       this.classDetails = data;
-    },  (error: any) => { this.showError(error) });
+    }, (error: any) => { this.showError(error) });
   }
 
-  onSubmit() {
+  OnSubmit() {
+
+    var studentId = this.student.Id;
     this.student = this.studentForm.value;
     this.student.ClassDetail = this.classDetails.find(x => x.ClassName == this.studentForm.value.ClassDetail);
-    this.studentService.AddStudent(this.student).subscribe(
-      (data:any) => {},
-      (error: any) => { this.showError(""); });
+    this.student.Id = studentId;
+    if (this.IsEdit == false) {
+      this.AddStudent();
+    }
+    else {
+      console.log(this.student);
+      this.UpdateStudent();
+    }
+  }
 
-      } 
+
+  AddStudent() {
+    this.studentService.AddStudent(this.student).subscribe((data: any) => { }, (error: any) => { this.showError(""); });
+  }
+
+  UpdateStudent(): any {
+    this.studentService.UpdateStudent(this.student).subscribe((data: any) => { }, (error: any) => { this.showError(""); });
+  }
+
+  GetStudent(id: number): any {
+    this.studentService.GetStudent(id).subscribe((data: any) => {
+      this.student = data;
+      this.FillStudentForm();
+    }, (error: any) => { this.showError(error) });
+  }
+
+
+  private FillDefaultvaluesForForm() {
+    this.studentForm = this.fb.group({
+      FirstName: [null, Validators.required],
+      LastName: [null, Validators.required],
+      FatherName: [null, Validators.required],
+      MotherName: [null, Validators.required],
+      FatherMobileNumber: [null, Validators.required],
+      MotherMobileNumber: [null, Validators.required],
+      STSCode: [null, Validators.required],
+      CasteName: [null, Validators.required],
+      DateofBirth: [null, Validators.required],
+      ClassDetail: [null, Validators.required],
+      Address1: [null, Validators.required],
+      Address2: null,
+      City: [null, Validators.required],
+      State: [null, Validators.required],
+      PostalCode: [null, Validators.compose([
+        Validators.required, Validators.minLength(6), Validators.maxLength(6)
+      ])
+      ],
+      Gender: ['Male', Validators.required],
+      Nationality: ['Indian', Validators.required],
+      IsActive: new FormControl({ value: true, disabled: !this.IsEdit }, Validators.required),
+    });
+    this.GetClasses();
+  }
+
+
+  private FillStudentForm() {
+    this.studentForm.patchValue({
+      FirstName: this.student.FirstName,
+      LastName: this.student.LastName,
+      FatherName: this.student.FatherName,
+      MotherName: this.student.MotherName,
+      FatherMobileNumber: this.student.FatherMobileNumber,
+      MotherMobileNumber: this.student.MotherMobileNumber,
+      STSCode: this.student.STSCode,
+      CasteName: this.student.CasteName,
+      DateofBirth: this.student.DateofBirth,
+      ClassDetail: this.student.ClassDetail.ClassName,
+      Address1: this.student.Address1,
+      Address2: this.student.Address2,
+      City: this.student.City,
+      State: this.student.State,
+      PostalCode: this.student.PostalCode,
+      Gender: this.student.Gender,
+      Nationality: this.student.Nationality,
+      IsActive: this.student.IsActive,
+    });
+
+  }
 }

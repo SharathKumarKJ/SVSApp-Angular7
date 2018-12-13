@@ -9,7 +9,7 @@ export class Student {
     FatherMobileNumber: string;
     MotherMobileNumber: string;
     STSCode: string;
-    Caste: string;
+    CasteName: string;
     DateofBirth: Date;
     ClassDetail: Class;
     Address1: string;
@@ -19,4 +19,5 @@ export class Student {
     PostalCode: string;
     Gender: string;
     Nationality: string;
+    IsActive:boolean;
 }

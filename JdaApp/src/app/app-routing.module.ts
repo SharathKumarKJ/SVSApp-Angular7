@@ -71,7 +71,10 @@ const routes: Routes = [
     path: 'student', component: NavigationComponent, canActivate: [AuthGuard],
     children: [{ path: '', component: StudentComponent }]
   },
-
+  {
+    path: 'student/:Id', component: NavigationComponent, canActivate: [AuthGuard],
+    children: [{ path: '', component: StudentComponent }]
+  },
   {
     path: 'browseStudent', component: NavigationComponent, canActivate: [AuthGuard],
     children: [{ path: '', component: BrowseStudentComponent }]
@@ -144,7 +147,7 @@ const routes: Routes = [
     children: [{ path: '', component: CalendarComponent }]
   },
 
-
+ 
 
 
 

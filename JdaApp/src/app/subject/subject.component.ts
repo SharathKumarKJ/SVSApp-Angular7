@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, Validators, NgForm } from '@angular/forms';
+import { FormBuilder, Validators, NgForm, FormControl } from '@angular/forms';
 import { Subject } from './subject.model';
 import { SubjectService } from '../shared/subject.service';
 import { ToastrService } from 'ngx-toastr';
@@ -10,15 +10,18 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./subject.component.scss'],
 })
 export class SubjectComponent {
-  addressForm = this.fb.group({
+
+  subjectForm = this.fb.group({
     SubjectName: null,
+    IsActive: new FormControl({ value: true, disabled: true }, Validators.required),
 
   });
 
   subject: Subject =
     {
       Id: 0,
-      SubjectName: " "
+      SubjectName: " ",
+      IsActive: true
     };
 
 
@@ -40,21 +43,12 @@ export class SubjectComponent {
     this.toastr.info('Loaded');
   }
 
-  OnSubmit(form: NgForm) {
-
+  OnSubmit() {
+    this.subject = this.subjectForm.value;
     this.subjectService.AddSubejct(this.subject).subscribe(
-      () => { this.resetForm(form); },
+      () => { this.subjectForm.reset() },
       (error: any) => { this.showError(error) },
-      () => { this.showSuccess() }
-    );
+      () => { this.showSuccess() });
   }
 
-  resetForm(form?: NgForm) {
-    if (form != null)
-      this.subject =
-        {
-          Id: 0,
-          SubjectName: '',
-        }
-  }
 }

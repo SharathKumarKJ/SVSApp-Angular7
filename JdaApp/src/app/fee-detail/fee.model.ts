@@ -9,4 +9,6 @@ export class Fee
     TotalAmount:number
     PaidAmount:number
     BalanceAmount:number
+    FeeStatus:number
+    IsActive:boolean
 }

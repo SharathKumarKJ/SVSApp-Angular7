@@ -8,11 +8,18 @@ import { Student } from '../student/student.model';
 import { FeeService } from '../shared/fee.service';
 
 declare var $: any;
+export interface FeeStatusValue {
+  Value: number;
+  Name: string;
+}
+
 @Component({
   selector: 'app-fee-detail',
   templateUrl: './fee-detail.component.html',
   styleUrls: ['./fee-detail.component.scss'],
 })
+
+
 export class FeeDetailComponent implements OnInit {
 
   feeForm = this.fb.group({
@@ -22,7 +29,16 @@ export class FeeDetailComponent implements OnInit {
     TotalAmount: [null, Validators.required],
     PaidAmount: [null, Validators.required],
     BalanceAmount: new FormControl({ value: '00.00', disabled: true }, Validators.required),
+    FeeStatus:[null,Validators.required],
+    IsActive: new FormControl({ value: true, disabled: true }, Validators.required),
   });
+
+  feeStatusValue: FeeStatusValue[] = [
+    { Value: 0, Name: 'Pending' },
+    { Value: 1, Name: 'NotPaid' },
+    { Value: 2, Name: 'Paid' },
+    { Value: 3, Name: 'PartiallyPaid' },
+  ];
 
   students: Student[];
 
@@ -35,9 +51,9 @@ export class FeeDetailComponent implements OnInit {
       TotalAmount: 0,
       PaidAmount: 0,
       BalanceAmount: 0,
+      FeeStatus:0,
+      IsActive: true,
     };
-
-
 
   constructor(private fb: FormBuilder, private studentService: StudentService, private feeService: FeeService, private toastr: ToastrService) {
 
@@ -54,7 +70,6 @@ export class FeeDetailComponent implements OnInit {
       var paidAmount = parseInt($('#PaidAmount').val());
       $('#BalanceAmount').val(totalAmount - paidAmount);
     });
-
 
     this.GetStudents()
 

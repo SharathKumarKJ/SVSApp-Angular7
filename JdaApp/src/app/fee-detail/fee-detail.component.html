@@ -65,6 +65,20 @@
               </mat-form-field>
         </div>
       </div>
+      <div class="row">
+        <div class="col">
+            <mat-form-field>
+                <mat-select formControlName="FeeStatus" placeholder="Fee Status">
+                  <mat-option *ngFor="let fee of feeStatusValue" [value]="fee.Value">
+                    {{fee.Name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+        </div>
+        <div class="col">
+            <mat-checkbox formControlName="IsActive">Is Active</mat-checkbox>
+          </div>
+      </div>
     </mat-card-content>
     <mat-card-actions>
       <button mat-raised-button color="primary" type="submit">Submit</button>

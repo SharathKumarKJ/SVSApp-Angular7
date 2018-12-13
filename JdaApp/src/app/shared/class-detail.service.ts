@@ -24,13 +24,9 @@ export class ClassDetailService {
   }
 
   AddClassDetail(classDetail: Class) {
-    const body: Class = {
-      Id: classDetail.Id,
-      ClassName: classDetail.ClassName,
-    }
-
+  
     var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
-    return this.httpClient.post(RootURL.URl + '/api/ClassDetails', body, { headers: reqHeader })
+    return this.httpClient.post(RootURL.URl + '/api/ClassDetails', classDetail, { headers: reqHeader })
       .pipe(tap((classDetail: Class) => {
         console.log("class Detail Id : " + classDetail.Id + " Added successfully");
         this.showSuccess();
