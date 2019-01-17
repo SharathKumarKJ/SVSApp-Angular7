@@ -1,0 +1,20 @@
+<mat-card class="example-card">
+  <div class="form-group">
+    <mat-form-field class="full-width">
+      <mat-select placeholder="Select Class">
+        <mat-option *ngFor="let classDetail of classDetails" [value]="classDetail.ClassName">
+          <div (click)="viewStudents(classDetail.Id)">
+            {{ classDetail.ClassName }}
+          </div>
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <input type="text" class="form-control" placeholder="Search By Name" style="width:300px" [(ngModel)]="searchTerm" />
+  </div>
+</mat-card>
+<div *ngFor="let student of filterdStudent">
+  <div (click)="onClick(student.Id)" class="pointerCursor">
+    <app-student-view [student]="student" #childComponent> </app-student-view>
+  </div>
+</div>

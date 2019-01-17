@@ -15,15 +15,15 @@ export class PhotoGalleryComponent implements OnInit {
 
     this.galleryOptions = [
       {
-        width: '600px',
-        height: '400px',
+        width: '800px',
+        height: '900px',
         thumbnailsColumns: 4,
         imageAnimation: NgxGalleryAnimation.Slide
       },
       // max-width 800
       {
        
-        width: '80%',
+        width: '100%',
         height: '500px',
         imagePercent: 90,
         thumbnailsPercent: 20,
@@ -32,7 +32,7 @@ export class PhotoGalleryComponent implements OnInit {
       },
       // max-width 400
       {
-        breakpoint: 400,
+        breakpoint: 500,
         preview: true
       }
     ];

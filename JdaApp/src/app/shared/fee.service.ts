@@ -38,6 +38,12 @@ export class FeeService {
         catchError(this.handleError('GetFees', [])));
   }
 
+  GetFeesByClass(classId :number): Observable<Fee[]> {
+    const url = `${RootURL.URl + "/api/FeesByClass"}/${classId}`;
+    return this.httpClient.get<Fee[]>(url)
+      .pipe(tap(() => console.log('Fetched Fees')),
+        catchError(this.handleError('GetFee', [])));
+  }
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
 

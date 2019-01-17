@@ -25,6 +25,9 @@ import { BrowseUserComponent } from './browse-user/browse-user.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { PhotoGalleryComponent } from './photo-gallery/photo-gallery.component';
 import { CalendarComponent } from './calendar/calendar.component';
+import { StudentListComponent } from './student-list/student-list.component';
+import { TeacherListComponent } from './teacher-list/teacher-list.component';
+import { FeeDetailListComponent } from './fee-detail-list/fee-detail-list.component';
 
 const routes: Routes = [
 
@@ -79,6 +82,10 @@ const routes: Routes = [
     path: 'browseStudent', component: NavigationComponent, canActivate: [AuthGuard],
     children: [{ path: '', component: BrowseStudentComponent }]
   },
+  {
+    path: 'listStudent', component: NavigationComponent, canActivate: [AuthGuard],
+    children: [{ path: '', component: StudentListComponent }]
+  },
 
   {
     path: 'teacher', component: NavigationComponent, canActivate: [AuthGuard],
@@ -88,6 +95,11 @@ const routes: Routes = [
   {
     path: 'browseTeacher', component: NavigationComponent, canActivate: [AuthGuard],
     children: [{ path: '', component: BrowseTeacherComponent }]
+  },
+
+  {
+    path: 'listTeacher', component: NavigationComponent, canActivate: [AuthGuard],
+    children: [{ path: '', component: TeacherListComponent }]
   },
 
   {
@@ -118,6 +130,10 @@ const routes: Routes = [
   {
     path: 'browseFee', component: NavigationComponent, canActivate: [AuthGuard],
     children: [{ path: '', component: BrowseFeeDetailComponent }]
+  },
+  {
+    path: 'listFee', component: NavigationComponent, canActivate: [AuthGuard],
+    children: [{ path: '', component: FeeDetailListComponent }]
   },
 
   {

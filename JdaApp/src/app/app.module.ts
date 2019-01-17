@@ -46,6 +46,12 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import 'flatpickr/dist/flatpickr.css';
 import { FlatpickrModule } from 'angularx-flatpickr';
 import { SampleComponent } from './sample/sample.component';
+import { StudentViewComponent } from './student-view/student-view.component';
+import { StudentListComponent } from './student-list/student-list.component';
+import { TeacherListComponent } from './teacher-list/teacher-list.component';
+import { TeacherViewComponent } from './teacher-view/teacher-view.component';
+import { FeeDetailListComponent } from './fee-detail-list/fee-detail-list.component';
+import { FeeDetailViewComponent } from './fee-detail-view/fee-detail-view.component';
 
 @NgModule({
   declarations: [
@@ -76,6 +82,12 @@ import { SampleComponent } from './sample/sample.component';
     PhotoGalleryComponent,
     CalendarComponent,
     SampleComponent,
+    StudentViewComponent,
+    StudentListComponent,
+    TeacherListComponent,
+    TeacherViewComponent,
+    FeeDetailListComponent,
+    FeeDetailViewComponent,
   ],
   imports: [
     BrowserModule,

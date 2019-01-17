@@ -1,0 +1,4 @@
+{
+    "appService.deploySubpath": "dist\\JdaApp",
+    "appService.defaultWebAppToDeploy": "/subscriptions/75f8453f-f89e-459b-8d4d-cd29849a8afd/resourceGroups/SVSWebApp/providers/Microsoft.Web/sites/SVSWebApp/slots/SVSA"
+}

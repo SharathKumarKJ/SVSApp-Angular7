@@ -1,24 +1,18 @@
-
-<div *ngIf="isLoginError" class="red-text center error-message">
-  <i class="material-icons">error</i> Incorrect username or password
-</div>
-
-<form #loginForm="ngForm" class="col s12 white" (ngSubmit)="OnSubmit(UserName.value,Password.value)">
- <div class="row">
-   <div class="input-field col s12">
-     <i class="material-icons prefix">account_circle</i>
-     <input type="text" #UserName ngModel name="UserName" placeholder="Username" required>
-   </div>
- </div>
- <div class="row">
-    <div class="input-field col s12">
-      <i class="material-icons prefix">vpn_key</i>
-      <input type="password" #Password ngModel name="Password" placeholder="Password" required>
-    </div>
-  </div>
-  <div class="row">
-      <div class="input-field col s12">
-        <button [disabled]="!loginForm.valid" class="btn-large btn-submit" type="submit">Login</button>
-      </div>
-    </div>
+<form class="example-form" #loginForm="ngForm" (ngSubmit)="OnSubmit(UserName.value,Password.value)">
+  <mat-card class="shipping-card">
+    <mat-card-header>
+      <mat-card-title>Login</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-form-field class="full-width">
+        <input matInput type="text" #UserName ngModel name="UserName" placeholder="User Name" required>
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <input matInput type="password" #Password ngModel name="Password" placeholder="Password" required>
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" [disabled]="!loginForm.valid" type="submit">Login</button>
+    </mat-card-actions>
+  </mat-card>
 </form>

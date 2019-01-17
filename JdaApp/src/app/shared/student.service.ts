@@ -35,13 +35,12 @@ export class StudentService {
   }
 
   UpdateStudent(student: Student): any {
-    console.log(student.Id);
     var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
     return this.httpClient.put(RootURL.URl + '/api/Students/' + student.Id, student, { headers: reqHeader })
       .pipe(tap((student: Student) => {
+        console.log("updated successfully");
         this.showSuccess();
-      }
-      ),
+      }),
         catchError(this.handleError<Student>('UpdateStudent')));
   }
 
@@ -49,6 +48,13 @@ export class StudentService {
 
   GetStudents(): Observable<Student[]> {
     return this.httpClient.get<Student[]>(RootURL.URl + '/api/Students')
+      .pipe(tap(() => console.log('Fetched Students')),
+        catchError(this.handleError('GetStudent', [])));
+  }
+
+  GetStudentsByClass(classId :number): Observable<Student[]> {
+    const url = `${RootURL.URl + "/api/StudentsByClass"}/${classId}`;
+    return this.httpClient.get<Student[]>(url)
       .pipe(tap(() => console.log('Fetched Students')),
         catchError(this.handleError('GetStudent', [])));
   }

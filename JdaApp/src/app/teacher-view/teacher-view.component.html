@@ -1,0 +1,94 @@
+<mat-card class="example-card">
+    <mat-card-header>
+      <mat-card-title>{{teacher.FirstName +' '+ teacher.LastName}}</mat-card-title>
+      <mat-card-subtitle>{{teacher.AadharNumber}} / {{teacher.PANNumber}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <table>
+        <tr>
+          <th> Qulification</th>
+          <td>{{teacher.Qulification}}</td>
+        </tr>
+        <tr>
+          <th>SpecialistIn</th>
+          <td>{{teacher.SpecialistIn}}</td>
+        </tr>
+        <tr>
+          <th>Experience</th>
+          <td>{{teacher.Experience}}</td>
+        </tr>
+        <tr>
+          <th>
+              Subjects Handle
+          </th>
+          <td>
+            {{teacher.SubjectsHandle}}
+          </td>
+        </tr>
+  
+        <tr>
+          <th>
+            D O B
+          </th>
+          <td>
+            {{teacher.DateofBirth | date}}
+          </td>
+        </tr>
+        <tr>
+            <th>
+                Caste Name
+            </th>
+            <td>
+              {{teacher.CasteName }}
+            </td>
+          </tr>
+        <tr>
+          <th>
+            Address 1
+          </th>
+          <td>
+            {{teacher.Address1}}
+          </td>
+        </tr>
+  
+        <tr>
+          <th>
+            Address 2
+          </th>
+          <td>
+            {{teacher.Address2}}
+          </td>
+        </tr>
+  
+        <tr>
+          <th>
+            City
+          </th>
+          <td>
+            {{teacher.City}}
+          </td>
+        </tr>
+  
+        <tr>
+          <th>
+            Postal Code
+          </th>
+          <td>
+            {{teacher.PostalCode}}
+          </td>
+        </tr>
+        <tr>
+          <th>
+            Nationality
+          </th>
+          <td>
+            {{teacher.Nationality}}
+          </td>
+        </tr>
+      </table>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button (click)="handleClick()">Edit</button>
+      <button mat-button>Delete</button>
+    </mat-card-actions>
+  </mat-card>

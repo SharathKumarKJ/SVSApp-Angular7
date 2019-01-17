@@ -1,0 +1,10 @@
+<mat-card class="example-card">
+    <div class="form-group">
+      <input type="text" class="form-control" placeholder="Search By Name" style="width:300px" [(ngModel)]="searchTerm" />
+    </div>
+  </mat-card>
+  <div *ngFor="let teacher of filterdTeacher">
+    <div (click)="onClick(teacher.Id)" class="pointerCursor">
+      <app-teacher-view [teacher]="teacher" #childComponent> </app-teacher-view>
+    </div>
+  </div>

@@ -65,7 +65,7 @@ export class TeacherComponent {
     { name: 'Uttar Pradesh', abbreviation: 'UP' },
     { name: 'West Bengal', abbreviation: 'WB' }
   ];
-
+  panelOpenState=false;
   teacher: Teacher =
     {
       Id: 0,

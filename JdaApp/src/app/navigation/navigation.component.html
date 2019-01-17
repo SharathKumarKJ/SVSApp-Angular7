@@ -4,9 +4,10 @@
       <mat-icon>menu</mat-icon>
     </button>
     <h1 class="pointerCursor example-app-name" (click)="OnMenuClick()">SVS App</h1>
-    <div class="example-fill-remaining-space">
-      <i class="material-icons dp48 pointerCursor" [matMenuTriggerFor]="profile">person </i>
 
+    <div class="example-fill-remaining-space" *ngIf="mobileQuery.matches ? false : true">
+
+      <i class="material-icons dp48 pointerCursor" [matMenuTriggerFor]="profile">person </i>
 
       <mat-menu #profile="matMenu">
         <button mat-menu-item [matMenuTriggerFor]="setting">Setting</button>
@@ -56,23 +57,29 @@
 
     </div>
     <div class="welcomeHeader novfont-size">
-      <p><b>Welcome :  {{userClaim.FirstName +' '+ userClaim.LastName}} </b>&nbsp;&nbsp; <i>Email : {{ userClaim.Email }}&nbsp;&nbsp; Logged On :{{userClaim.LoggedOn}}</i></p>
+      <p *ngIf="mobileQuery.matches ? false : true"><b>Welcome : {{userClaim.FirstName +' '+ userClaim.LastName}}
+        </b>&nbsp;&nbsp; <i>Email : {{ userClaim.Email }}&nbsp;&nbsp;
+          Logged On :{{userClaim.LoggedOn}}</i></p>
+
     </div>
   </mat-toolbar>
   <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
-    <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches"
+    <mat-sidenav class="novColor" #snav [mode]="mobileQuery.matches ? 'over' : 'over'" [fixedInViewport]="mobileQuery.matches"
       fixedTopGap="56">
       <mat-nav-list>
         <a mat-list-item [matMenuTriggerFor]="Student">Student</a>
         <mat-menu #Student="matMenu" yPosition="above">
           <a mat-menu-item routerLink="/student">Create</a>
           <a mat-menu-item routerLink="/browseStudent">Browse</a>
+          <a mat-menu-item routerLink="/listStudent">View</a>
+          
         </mat-menu>
 
         <a mat-list-item [matMenuTriggerFor]="Teacher">Teacher</a>
         <mat-menu #Teacher="matMenu">
           <a mat-menu-item routerLink="/teacher">Create</a>
           <a mat-menu-item routerLink="/browseTeacher">Browse</a>
+          <a mat-menu-item routerLink="/listTeacher">View</a>
         </mat-menu>
 
         <a mat-list-item [matMenuTriggerFor]="Subject">Subject</a>
@@ -91,6 +98,7 @@
         <mat-menu #Fee="matMenu">
           <a mat-menu-item routerLink="/fee">Create</a>
           <a mat-menu-item routerLink="/browseFee">Browse</a>
+          <a mat-menu-item routerLink="/listFee">View</a>
         </mat-menu>
 
         <a mat-list-item [matMenuTriggerFor]="TeacherSubject">Teacher Subject</a>
@@ -98,12 +106,23 @@
           <a mat-menu-item routerLink="/teacherSubjectDetail">Create</a>
           <a mat-menu-item routerLink="/browseTeacherSubjectDetail">Browse</a>
         </mat-menu>
-
-        <a mat-list-item [matMenuTriggerFor]="Other">Other</a>
-        <mat-menu #Other="matMenu">
-          <a mat-menu-item routerLink="/myFolder">My Folder</a>
-          <a mat-menu-item routerLink="/myWork">My Work</a>
-        </mat-menu>
+        <!-- <a mat-menu-item routerLink="/student">Student-Create</a>
+        <a mat-menu-item routerLink="/browseStudent">Student-Browse</a>
+        <a mat-menu-item routerLink="/teacher">Teacher-Create</a>
+        <a mat-menu-item routerLink="/browseTeacher">Teacher-Browse</a>
+        <a mat-menu-item routerLink="/subject">Subject-Create</a>
+        <a mat-menu-item routerLink="/browseSubject">Subject-Browse</a>
+        <a mat-menu-item routerLink="/class">Class-Create</a>
+        <a mat-menu-item routerLink="/browseClass">Class-Browse</a>
+        <a mat-menu-item routerLink="/fee">Fee-Create</a>
+        <a mat-menu-item routerLink="/browseFee">Fee-Browse</a>
+        <a mat-menu-item routerLink="/teacherSubjectDetail">Teacher Subject -Create</a>
+        <a mat-menu-item routerLink="/browseTeacherSubjectDetail">Teacher Subject-Browse</a> -->
+        <a mat-menu-item routerLink="/myFolder">My Folder</a>
+        <a mat-menu-item routerLink="/myWork">My Work</a>
+        <a mat-menu-item routerLink="/photo">Photo Library</a>
+        <a mat-menu-item routerLink="/calendar">Calender</a>
+        <a mat-menu-item (click)="Logout()">Logout</a>
       </mat-nav-list>
     </mat-sidenav>
 

@@ -72,7 +72,7 @@ export class StudentComponent {
     };
 
   IsEdit = false;
-
+  panelOpenState=false;
   constructor(private route: ActivatedRoute, private fb: FormBuilder, private classService: ClassDetailService, private studentService: StudentService, private toastr: ToastrService) {
   }
 
@@ -120,7 +120,6 @@ export class StudentComponent {
       this.AddStudent();
     }
     else {
-      console.log(this.student);
       this.UpdateStudent();
     }
   }
@@ -131,7 +130,11 @@ export class StudentComponent {
   }
 
   UpdateStudent(): any {
-    this.studentService.UpdateStudent(this.student).subscribe((data: any) => { }, (error: any) => { this.showError(""); });
+    this.studentService.UpdateStudent(this.student)
+    .subscribe((data: any) => 
+    { }, 
+    (error: any) => { this.showError("");
+   });
   }
 
   GetStudent(id: number): any {

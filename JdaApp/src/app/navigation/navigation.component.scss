@@ -3,6 +3,7 @@
   position: sticky;
   top: 0;
   z-index: 1;
+  height: 6%;
 }
 
 .example-container {
@@ -13,6 +14,7 @@
   bottom: 0;
   left: 0;
   right: 0;
+  background-color: burlywood;
 }
 
 .example-is-mobile .example-toolbar {
@@ -22,7 +24,7 @@
 }
 
 h1.example-app-name {
-  margin-left: 8px;
+  margin-left: 2px;
 }
 
 .example-sidenav-container {
@@ -30,6 +32,7 @@ h1.example-app-name {
      causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
 
   height: 85%;
+
 }
 
 .example-is-mobile .example-sidenav-container {
@@ -40,7 +43,7 @@ h1.example-app-name {
 
 .example-fill-remaining-space {
   position: absolute;
-  left: 90%;
+  left: 97%;
   top: 20%;
   z-index: -1;
 }
@@ -54,8 +57,12 @@ h1.example-app-name {
   bottom: 0;
   left: 0;
   right: 0;
+  background-color:fade-out($color: #e6c5c5, $amount: 0)
 }
-
+.novColor
+{
+  background-color:fade-out($color: #e6c5c5, $amount: 0)
+}
 .novfont-size
 {
   font-size: 12px;
@@ -81,7 +88,7 @@ h1.example-app-name {
 .welcomeHeader
 {
   position: absolute;
-  left: 50%;
-  top: 20%;
+  left: 64%;
+  top: 0;
   z-index: -1;
 }
