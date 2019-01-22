@@ -6,6 +6,8 @@ import { SubjectService } from '../shared/subject.service';
 import { ClassDetailService } from '../shared/class-detail.service';
 import { Class } from '../class-detail/class.model';
 import { SelectionModel } from '@angular/cdk/collections';
+import { ExportAsService, ExportAsConfig, SupportedExtensions } from 'ngx-export-as';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-browse-classes',
@@ -34,9 +36,18 @@ export class BrowseClassesComponent implements OnInit {
 
   dataSource: MatTableDataSource<Class>;
   selection: SelectionModel<Class>;
-
-  constructor(private classDetailService: ClassDetailService) { }
-
+  
+  exportAsConfig: ExportAsConfig = {
+    type: 'pdf',
+    elementId: 'ClassTable',
+    options: { // html-docx-js document options
+      orientation: 'landscape',
+      margins: {
+        top: '20'
+      }
+    }
+  }
+  constructor(private classDetailService: ClassDetailService,private exportAsService: ExportAsService , private router: Router) { }
   ngOnInit() {
     this.classDetailService.getClasses().subscribe((x) => {
       this.dataSource = new MatTableDataSource<Class>(x);
@@ -63,5 +74,22 @@ export class BrowseClassesComponent implements OnInit {
     this.isAllSelected() ?
       this.selection.clear() :
       this.dataSource.data.forEach(row => this.selection.select(row));
+  }
+  exportAs(type: SupportedExtensions) {
+    this.exportAsConfig.type = type;
+    this.exportAsService.save(this.exportAsConfig, 'Classes');
+    // this.exportAsService.get(this.config).subscribe(content => {
+    //   console.log(content);
+    // });
+  }
+  refresh(): void {
+    window.location.reload();
+  }
+
+  onClick(studentId: number) {
+    this.router.navigate(
+      ['/student', studentId]
+      , { queryParams: { 'searchTerm': 'searchTerm', 'testParam': 'testvalue' } }
+    );
   }
 }

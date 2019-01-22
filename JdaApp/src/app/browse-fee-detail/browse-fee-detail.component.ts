@@ -4,6 +4,8 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { SelectionModel } from '@angular/cdk/collections';
 import { Fee } from '../fee-detail/fee.model';
 import { FeeService } from '../shared/fee.service';
+import { ExportAsService, SupportedExtensions, ExportAsConfig } from 'ngx-export-as';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-browse-fee-detail',
@@ -39,8 +41,18 @@ export class BrowseFeeDetailComponent implements OnInit {
     dataSource: MatTableDataSource<Fee>;
 
     selection: SelectionModel<Fee>;
-
-    constructor(private feeService: FeeService) { }
+    
+    exportAsConfig: ExportAsConfig = {
+      type: 'pdf',
+      elementId: 'FeeTable',
+      options: { // html-docx-js document options
+        orientation: 'landscape',
+        margins: {
+          top: '20'
+        }
+      }
+    }
+    constructor(private feeService: FeeService,private exportAsService: ExportAsService , private router: Router) { }
 
   ngOnInit() {
 
@@ -69,5 +81,22 @@ export class BrowseFeeDetailComponent implements OnInit {
     this.isAllSelected() ?
       this.selection.clear() :
       this.dataSource.data.forEach(row => this.selection.select(row));
+  }
+  exportAs(type: SupportedExtensions) {
+    this.exportAsConfig.type = type;
+    this.exportAsService.save(this.exportAsConfig, 'Fees');
+    // this.exportAsService.get(this.config).subscribe(content => {
+    //   console.log(content);
+    // });
+  }
+  refresh(): void {
+    window.location.reload();
+  }
+
+  onClick(studentId: number) {
+    this.router.navigate(
+      ['/fee', studentId]
+      , { queryParams: { 'searchTerm': 'searchTerm', 'testParam': 'testvalue' } }
+    );
   }
 }

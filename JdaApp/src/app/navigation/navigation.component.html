@@ -70,54 +70,43 @@
         <a mat-list-item [matMenuTriggerFor]="Student">Student</a>
         <mat-menu #Student="matMenu" yPosition="above">
           <a mat-menu-item routerLink="/student">Create</a>
-          <a mat-menu-item routerLink="/browseStudent">Browse</a>
-          <a mat-menu-item routerLink="/listStudent">View</a>
+          <a *ngIf="mobileQuery.matches ? false : true" mat-menu-item routerLink="/browseStudent">View</a>
+          <a *ngIf="mobileQuery.matches" mat-menu-item routerLink="/listStudent">View</a>
           
         </mat-menu>
 
         <a mat-list-item [matMenuTriggerFor]="Teacher">Teacher</a>
         <mat-menu #Teacher="matMenu">
           <a mat-menu-item routerLink="/teacher">Create</a>
-          <a mat-menu-item routerLink="/browseTeacher">Browse</a>
-          <a mat-menu-item routerLink="/listTeacher">View</a>
+          <a *ngIf="mobileQuery.matches ? false : true"mat-menu-item routerLink="/browseTeacher">View</a>
+          <a *ngIf="mobileQuery.matches"  mat-menu-item routerLink="/listTeacher">View</a>
         </mat-menu>
 
         <a mat-list-item [matMenuTriggerFor]="Subject">Subject</a>
         <mat-menu #Subject="matMenu">
           <a mat-menu-item routerLink="/subject">Create</a>
-          <a mat-menu-item routerLink="/browseSubject">Browse</a>
+          <a mat-menu-item routerLink="/browseSubject">View</a>
         </mat-menu>
 
         <a mat-list-item [matMenuTriggerFor]="Class">Class</a>
         <mat-menu #Class="matMenu">
           <a mat-menu-item routerLink="/class">Create</a>
-          <a mat-menu-item routerLink="/browseClass">Browse</a>
+          <a mat-menu-item routerLink="/browseClass">View</a>
         </mat-menu>
 
         <a mat-list-item [matMenuTriggerFor]="Fee">Fee</a>
         <mat-menu #Fee="matMenu">
           <a mat-menu-item routerLink="/fee">Create</a>
-          <a mat-menu-item routerLink="/browseFee">Browse</a>
-          <a mat-menu-item routerLink="/listFee">View</a>
+          <a *ngIf="mobileQuery.matches ? false : true" mat-menu-item routerLink="/browseFee">View</a>
+          <a *ngIf="mobileQuery.matches"  mat-menu-item routerLink="/listFee">View</a>
         </mat-menu>
 
         <a mat-list-item [matMenuTriggerFor]="TeacherSubject">Teacher Subject</a>
         <mat-menu #TeacherSubject="matMenu">
           <a mat-menu-item routerLink="/teacherSubjectDetail">Create</a>
-          <a mat-menu-item routerLink="/browseTeacherSubjectDetail">Browse</a>
+          <a mat-menu-item routerLink="/browseTeacherSubjectDetail">View</a>
         </mat-menu>
-        <!-- <a mat-menu-item routerLink="/student">Student-Create</a>
-        <a mat-menu-item routerLink="/browseStudent">Student-Browse</a>
-        <a mat-menu-item routerLink="/teacher">Teacher-Create</a>
-        <a mat-menu-item routerLink="/browseTeacher">Teacher-Browse</a>
-        <a mat-menu-item routerLink="/subject">Subject-Create</a>
-        <a mat-menu-item routerLink="/browseSubject">Subject-Browse</a>
-        <a mat-menu-item routerLink="/class">Class-Create</a>
-        <a mat-menu-item routerLink="/browseClass">Class-Browse</a>
-        <a mat-menu-item routerLink="/fee">Fee-Create</a>
-        <a mat-menu-item routerLink="/browseFee">Fee-Browse</a>
-        <a mat-menu-item routerLink="/teacherSubjectDetail">Teacher Subject -Create</a>
-        <a mat-menu-item routerLink="/browseTeacherSubjectDetail">Teacher Subject-Browse</a> -->
+
         <a mat-menu-item routerLink="/myFolder">My Folder</a>
         <a mat-menu-item routerLink="/myWork">My Work</a>
         <a mat-menu-item routerLink="/photo">Photo Library</a>

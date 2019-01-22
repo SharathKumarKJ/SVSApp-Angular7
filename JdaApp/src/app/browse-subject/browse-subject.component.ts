@@ -4,6 +4,8 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Subject } from '../subject/subject.model';
 import { SubjectService } from '../shared/subject.service';
 import { SelectionModel } from '@angular/cdk/collections';
+import { ExportAsService, ExportAsConfig, SupportedExtensions } from 'ngx-export-as';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-browse-subject',
   templateUrl: './browse-subject.component.html',
@@ -28,10 +30,19 @@ export class BrowseSubjectComponent implements OnInit {
       'Id',
       'SubjectName',
     ];
-
+    exportAsConfig: ExportAsConfig = {
+      type: 'pdf',
+      elementId: 'subjectTable',
+      options: { // html-docx-js document options
+        orientation: 'landscape',
+        margins: {
+          top: '20'
+        }
+      }
+    }
   dataSource: MatTableDataSource<Subject>;
   selection: SelectionModel<Subject>;
-  constructor(private subjectService: SubjectService) { }
+  constructor(private subjectService: SubjectService,private exportAsService: ExportAsService , private router: Router) { }
 
   ngOnInit() {
     this.subjectService.GetSubjects().subscribe((x) => {
@@ -59,5 +70,22 @@ export class BrowseSubjectComponent implements OnInit {
     this.isAllSelected() ?
       this.selection.clear() :
       this.dataSource.data.forEach(row => this.selection.select(row));
+  }
+  exportAs(type: SupportedExtensions) {
+    this.exportAsConfig.type = type;
+    this.exportAsService.save(this.exportAsConfig, 'Subjects');
+    // this.exportAsService.get(this.config).subscribe(content => {
+    //   console.log(content);
+    // });
+  }
+  refresh(): void {
+    window.location.reload();
+  }
+
+  onClick(subjectId: number) {
+    this.router.navigate(
+      ['/subject', subjectId]
+      , { queryParams: { 'searchTerm': 'searchTerm', 'testParam': 'testvalue' } }
+    );
   }
 }

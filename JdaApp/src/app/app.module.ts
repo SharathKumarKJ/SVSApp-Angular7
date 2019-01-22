@@ -52,6 +52,7 @@ import { TeacherListComponent } from './teacher-list/teacher-list.component';
 import { TeacherViewComponent } from './teacher-view/teacher-view.component';
 import { FeeDetailListComponent } from './fee-detail-list/fee-detail-list.component';
 import { FeeDetailViewComponent } from './fee-detail-view/fee-detail-view.component';
+import { ExportAsModule } from 'ngx-export-as';
 
 @NgModule({
   declarations: [
@@ -118,6 +119,7 @@ import { FeeDetailViewComponent } from './fee-detail-view/fee-detail-view.compon
     NgxGalleryModule,
     NgbModalModule,
     CommonModule,
+    ExportAsModule,
     FlatpickrModule.forRoot(),
     CalendarModule.forRoot({
       provide: DateAdapter,

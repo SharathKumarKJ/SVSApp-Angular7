@@ -4,6 +4,8 @@ import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { TeacherSubjectDetailService } from '../shared/teacher-subject-detail.service';
 import { TeacherSubject } from '../teacher-subject-detail/teacher-subject.model';
+import { ExportAsService, ExportAsConfig, SupportedExtensions } from 'ngx-export-as';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-browse-teacher-subject-detail',
@@ -31,8 +33,18 @@ export class BrowseTeacherSubjectDetailComponent implements OnInit {
 
   dataSource: MatTableDataSource<TeacherSubject>;
 
-  constructor(private teacherSubjectDetailService: TeacherSubjectDetailService) { }
+  exportAsConfig: ExportAsConfig = {
+    type: 'pdf',
+    elementId: 'teacherSubjectTable',
+    options: { // html-docx-js document options
+      orientation: 'landscape',
+      margins: {
+        top: '20'
+      }
+    }
+  }
 
+  constructor(private teacherSubjectDetailService: TeacherSubjectDetailService, private exportAsService: ExportAsService, private router: Router) { }
   ngOnInit() {
     this.teacherSubjectDetailService.GetTeacherSubject().subscribe((x) => {
       this.dataSource = new MatTableDataSource<TeacherSubject>(x);
@@ -48,5 +60,23 @@ export class BrowseTeacherSubjectDetailComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
+  exportAs(type: SupportedExtensions) {
+    this.exportAsConfig.type = type;
+    this.exportAsService.save(this.exportAsConfig, 'teacherSubjects');
+    // this.exportAsService.get(this.config).subscribe(content => {
+    //   console.log(content);
+    // });
+  }
+  refresh(): void {
+    window.location.reload();
+  }
+
+  onClick(teacherSubjectId: number) {
+    this.router.navigate(
+      ['/teacherSubject', teacherSubjectId]
+      , { queryParams: { 'searchTerm': 'searchTerm', 'testParam': 'testvalue' } }
+    );
+  }
+
 }
 

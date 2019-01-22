@@ -4,6 +4,8 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Teacher } from '../teacher/teacher.model';
 import { TeacherService } from '../shared/teacher.service';
 import { SelectionModel } from '@angular/cdk/collections';
+import { Router } from '@angular/router';
+import { SupportedExtensions, ExportAsConfig, ExportAsService } from 'ngx-export-as';
 
 @Component({
   selector: 'app-browse-teacher',
@@ -41,12 +43,26 @@ export class BrowseTeacherComponent implements OnInit {
       'City',
       'State',
       'PostalCode',
+      'Gender',
+      'Address1',
+      'Address2',
+
     ];
 
   selection: SelectionModel<Teacher>;
   dataSource: MatTableDataSource<Teacher>;
-
-  constructor(private teacherService: TeacherService) { }
+  
+  exportAsConfig: ExportAsConfig = {
+    type: 'pdf',
+    elementId: 'teacherTable',
+    options: { // html-docx-js document options
+      orientation: 'landscape',
+      margins: {
+        top: '20'
+      }
+    }
+  }
+  constructor(private teacherService: TeacherService,private router: Router,private exportAsService: ExportAsService ) { }
 
   ngOnInit() {
     this.teacherService.GetTeachers().subscribe((x) => {
@@ -75,6 +91,23 @@ export class BrowseTeacherComponent implements OnInit {
     this.isAllSelected() ?
       this.selection.clear() :
       this.dataSource.data.forEach(row => this.selection.select(row));
+  }
+  exportAs(type: SupportedExtensions) {
+    this.exportAsConfig.type = type;
+    this.exportAsService.save(this.exportAsConfig, 'Teachers');
+    // this.exportAsService.get(this.config).subscribe(content => {
+    //   console.log(content);
+    // });
+  }
+  refresh(): void {
+    window.location.reload();
+  }
+
+  onClick(teacherId: number) {
+    this.router.navigate(
+      ['/teacher', teacherId]
+      , { queryParams: { 'searchTerm': 'searchTerm', 'testParam': 'testvalue' } }
+    );
   }
 }
 

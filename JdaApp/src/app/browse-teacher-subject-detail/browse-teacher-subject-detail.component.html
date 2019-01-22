@@ -1,14 +1,30 @@
-<mat-form-field>
-  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-</mat-form-field>
+<mat-card class="example-card">
+  <div>
+    <button class="material-icons dp48">edit</button>
+    <button class="material-icons dp48">delete</button>
+    <button class="material-icons dp48" (click)="refresh()">refresh</button>
+    <button class="material-icons dp48" [matMenuTriggerFor]="report">report</button>
+    <mat-menu #report="matMenu">
+      <button mat-menu-item (click)="exportAs('pdf')">PDF</button>
+      <button mat-menu-item (click)="exportAs('xlsx')">Excel</button>
+      <button mat-menu-item (click)="exportAs('png')">PNG</button>
+      <button mat-menu-item (click)="exportAs('csv')">CSV</button>
+      <button mat-menu-item (click)="exportAs('txt')">Text</button>
+      <button mat-menu-item (click)="exportAs('docx')">MS-Word</button>
+      <button mat-menu-item (click)="exportAs('json')">Json</button>
+      <button mat-menu-item (click)="exportAs('xml')">XML</button>
+    </mat-menu>
+    <input class="mat-form-field" matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+  </div>
+</mat-card>
 
 <div class="example-container mat-elevation-z8">
   <div class="example-loading-shade" *ngIf="isLoadingResults">
     <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
   </div>
 
-  <div class="example-table-container  mat-elevation-z8">
-    <table mat-table [dataSource]="dataSource" multiTemplateDataRows>
+  <mat-card class="example-card">
+    <table id="teacherSubjectTable" mat-table [dataSource]="dataSource" multiTemplateDataRows>
 
       <ng-container matColumnDef="Id">
         <th mat-header-cell *matHeaderCellDef>Id</th>
@@ -20,41 +36,19 @@
         <td mat-cell *matCellDef="let element"> {{element.ClassDetail?.ClassName}}</td>
       </ng-container>
 
-      <!-- Symbol Column -->
       <ng-container matColumnDef="Teacher">
         <th mat-header-cell *matHeaderCellDef> Teacher Name </th>
         <td mat-cell *matCellDef="let element"> {{element.Teacher?.FirstName}} </td>
       </ng-container>
 
-      <!-- Symbol Column -->
       <ng-container matColumnDef="Subject">
         <th mat-header-cell *matHeaderCellDef> Subject Name </th>
         <td mat-cell *matCellDef="let element"> {{element.Subject?.SubjectName}} </td>
       </ng-container>
 
-      <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
-
-      <ng-container matColumnDef="expandedDetail">
-        <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
-          <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-
-            <mat-card>
-              <div class="example-element-diagram">
-                <div class="example-element-position"> {{element.Id}} </div>
-              </div>
-            </mat-card>
-            <mat-card>
-              <div class="example-element-description">
-              </div>
-            </mat-card>
-          </div>
-        </td>
-      </ng-container>
-      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-      <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="example-element-row"
-        [class.example-expanded-row]="expandedElement === element" (click)="expandedElement = element">
-      </tr>
-      <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+     
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky: true"></tr>
+      <tr class="pointerCursor" (click)="onClick(row.Id)" mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
     </table>
     <mat-paginator [pageSizeOptions]="[10, 20, 30]" showFirstLastButtons></mat-paginator>
-  </div>
+  </mat-card>

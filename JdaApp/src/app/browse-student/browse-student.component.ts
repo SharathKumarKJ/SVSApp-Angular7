@@ -4,6 +4,8 @@ import { StudentService } from '../shared/student.service';
 import { Student } from '../student/student.model';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { SelectionModel } from '@angular/cdk/collections';
+import { ExportAsService, ExportAsConfig, SupportedExtensions } from 'ngx-export-as';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-browse-student',
@@ -29,22 +31,38 @@ export class BrowseStudentComponent implements OnInit {
       'select',
       'Id',
       'Name',
+      'Class',
       'FatherName',
       'MotherName',
       'STSCode',
       'DateofBirth',
+      'Gender',
+      'Nationality',
+      'FatherMobileNumber',
+      'MotherMobileNumber',
+      'Address1',
+      'Address2',
       'City',
       'State',
       'PostalCode',
-      'Gender',
-      'Nationality'];
+    ];
 
   dataSource: MatTableDataSource<Student>;
 
   selection: SelectionModel<Student>;
 
+  exportAsConfig: ExportAsConfig = {
+    type: 'pdf',
+    elementId: 'studentTable',
+    options: { // html-docx-js document options
+      orientation: 'landscape',
+      margins: {
+        top: '20'
+      }
+    }
+  }
 
-  constructor(private studentService: StudentService) { }
+  constructor(private studentService: StudentService, private exportAsService: ExportAsService , private router: Router) { }
 
   ngOnInit() {
     this.studentService.GetStudents().subscribe((x) => {
@@ -75,5 +93,23 @@ export class BrowseStudentComponent implements OnInit {
     this.isAllSelected() ?
       this.selection.clear() :
       this.dataSource.data.forEach(row => this.selection.select(row));
+  }
+
+  exportAs(type: SupportedExtensions) {
+    this.exportAsConfig.type = type;
+    this.exportAsService.save(this.exportAsConfig, 'Students');
+    // this.exportAsService.get(this.config).subscribe(content => {
+    //   console.log(content);
+    // });
+  }
+  refresh(): void {
+    window.location.reload();
+  }
+
+  onClick(studentId: number) {
+    this.router.navigate(
+      ['/student', studentId]
+      , { queryParams: { 'searchTerm': 'searchTerm', 'testParam': 'testvalue' } }
+    );
   }
 }
