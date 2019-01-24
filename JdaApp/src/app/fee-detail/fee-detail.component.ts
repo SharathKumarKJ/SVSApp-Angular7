@@ -8,6 +8,7 @@ import { Student } from '../student/student.model';
 import { FeeService } from '../shared/fee.service';
 
 declare var $: any;
+
 export interface FeeStatusValue {
   Value: number;
   Name: string;

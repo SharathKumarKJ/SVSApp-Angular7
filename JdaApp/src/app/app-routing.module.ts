@@ -28,6 +28,7 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { StudentListComponent } from './student-list/student-list.component';
 import { TeacherListComponent } from './teacher-list/teacher-list.component';
 import { FeeDetailListComponent } from './fee-detail-list/fee-detail-list.component';
+import { StudentAttendanceComponent } from './student-attendance/student-attendance.component';
 
 const routes: Routes = [
 
@@ -81,6 +82,10 @@ const routes: Routes = [
   {
     path: 'browseStudent', component: NavigationComponent, canActivate: [AuthGuard],
     children: [{ path: '', component: BrowseStudentComponent }]
+  },
+  {
+    path: 'studentAttendance', component: NavigationComponent, canActivate: [AuthGuard],
+    children: [{ path: '', component: StudentAttendanceComponent }]
   },
   {
     path: 'listStudent', component: NavigationComponent, canActivate: [AuthGuard],

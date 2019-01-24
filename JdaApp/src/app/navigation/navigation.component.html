@@ -72,7 +72,7 @@
           <a mat-menu-item routerLink="/student">Create</a>
           <a *ngIf="mobileQuery.matches ? false : true" mat-menu-item routerLink="/browseStudent">View</a>
           <a *ngIf="mobileQuery.matches" mat-menu-item routerLink="/listStudent">View</a>
-          
+          <a mat-menu-item routerLink="/studentAttendance">Attendance</a>
         </mat-menu>
 
         <a mat-list-item [matMenuTriggerFor]="Teacher">Teacher</a>

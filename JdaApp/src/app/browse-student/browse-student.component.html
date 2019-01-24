@@ -24,6 +24,7 @@
   </div>
   <mat-card class="example-card">
     <table id="studentTable" mat-table [dataSource]="dataSource" multiTemplateDataRows>
+      
       <ng-container matColumnDef="select">
         <th mat-header-cell *matHeaderCellDef>
           <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
