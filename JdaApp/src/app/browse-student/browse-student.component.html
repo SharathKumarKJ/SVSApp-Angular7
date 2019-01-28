@@ -1,4 +1,4 @@
-<mat-card class="example-card">
+<mat-card class="example-card-Header">
   <div>
     <button class="material-icons dp48">edit</button>
     <button class="material-icons dp48">delete</button>
@@ -22,7 +22,7 @@
   <div class="example-loading-shade" *ngIf="isLoadingResults">
     <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
   </div>
-  <mat-card class="example-card">
+  <mat-card class="example-card-Body">
     <table id="studentTable" mat-table [dataSource]="dataSource" multiTemplateDataRows>
       
       <ng-container matColumnDef="select">

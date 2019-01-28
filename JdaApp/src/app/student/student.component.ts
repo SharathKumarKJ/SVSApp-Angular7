@@ -6,6 +6,7 @@ import { Student } from './student.model';
 import { StudentService } from '../shared/student.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
+import { ALERT } from '../shared/alert';
 
 @Component({
   selector: 'app-student',
@@ -71,20 +72,32 @@ export class StudentComponent {
       IsActive: true
     };
 
+  canShow: boolean = false;
+  alert: any;
+
   IsEdit = false;
-  panelOpenState=false;
-  constructor(private route: ActivatedRoute, private fb: FormBuilder, private classService: ClassDetailService, private studentService: StudentService, private toastr: ToastrService) {
+  panelOpenState = false;
+
+  constructor(private route: ActivatedRoute
+    , private fb: FormBuilder
+    , private classService: ClassDetailService
+    , private studentService: StudentService
+    , private toastr: ToastrService) 
+    {
+    this.alert = ALERT.ALERTS[0];
+    this.canShow = false;
+
   }
 
   ngOnInit() {
     const id = + this.route.snapshot.paramMap.get('Id');
     if (id > 0) {
       this.IsEdit = true;
-      this.FillDefaultvaluesForForm();
+      this.formDefaultValues();
       this.GetStudent(id);
     }
     else {
-      this.FillDefaultvaluesForForm();
+      this.formDefaultValues();
     }
   }
 
@@ -104,21 +117,26 @@ export class StudentComponent {
     this.toastr.info('Just some information for you.');
   }
 
+
   private GetClasses() {
     this.classService.getClasses().subscribe((data: any) => {
       this.classDetails = data;
     }, (error: any) => { this.showError(error) });
   }
 
-  OnSubmit() {
 
+  OnSubmit() {
+    this.alert = ALERT.ALERTS[0];
+    this.showSuccess();
     var studentId = this.student.Id;
     this.student = this.studentForm.value;
     this.student.ClassDetail = this.classDetails.find(x => x.ClassName == this.studentForm.value.ClassDetail);
     this.student.Id = studentId;
+
     if (this.IsEdit == false) {
       this.AddStudent();
     }
+
     else {
       this.UpdateStudent();
     }
@@ -126,15 +144,28 @@ export class StudentComponent {
 
 
   AddStudent() {
-    this.studentService.AddStudent(this.student).subscribe((data: any) => { }, (error: any) => { this.showError(""); });
+    this.studentService
+      .AddStudent(this.student)
+      .subscribe(
+        (data: any) => { this.canShow = true; },
+        (error: any) => {
+          this.showError("");
+          () => {
+
+          }
+        });
+
+    this.showSuccess();
+    this.formDefaultValues();
+
   }
 
   UpdateStudent(): any {
     this.studentService.UpdateStudent(this.student)
-    .subscribe((data: any) => 
-    { }, 
-    (error: any) => { this.showError("");
-   });
+      .subscribe((data: any) => { },
+        (error: any) => {
+          this.showError("");
+        });
   }
 
   GetStudent(id: number): any {
@@ -145,7 +176,7 @@ export class StudentComponent {
   }
 
 
-  private FillDefaultvaluesForForm() {
+  private formDefaultValues() {
     this.studentForm = this.fb.group({
       FirstName: [null, Validators.required],
       LastName: [null, Validators.required],
@@ -195,5 +226,8 @@ export class StudentComponent {
       IsActive: this.student.IsActive,
     });
 
+  }
+  close(alert: any) {
+    this.canShow = false;
   }
 }

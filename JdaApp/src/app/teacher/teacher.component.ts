@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { Teacher } from './teacher.model';
 import { TeacherService } from '../shared/teacher.service';
 import { ToastrService } from 'ngx-toastr';
+import { ALERT } from '../shared/alert';
 
 @Component({
   selector: 'app-teacher',
@@ -88,8 +89,12 @@ export class TeacherComponent {
       PostalCode: null,
       IsActive:true
     };
-
-  constructor(private fb: FormBuilder, private teacherService: TeacherService, private toastr: ToastrService) { }
+    canShow: boolean = false;
+    alert: any;
+  constructor(private fb: FormBuilder, private teacherService: TeacherService, private toastr: ToastrService) {
+    this.alert = ALERT.ALERTS[0];
+    this.canShow = false;
+   }
   ngOnInit() {
   }
   showSuccess() {
@@ -113,7 +118,10 @@ export class TeacherComponent {
     this.teacherService.AddTeacher(this.teacher).subscribe(
       () => { this.teacherForm.reset() },
       (error: any) => { this.showError(error) },
-      () => { this.showSuccess() });
+      () => { this.showSuccess(); this.canShow=true; });
+  }
+  close(alert: any) {
+    this.canShow = false;
   }
 }
 

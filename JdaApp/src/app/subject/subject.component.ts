@@ -3,6 +3,7 @@ import { FormBuilder, Validators, NgForm, FormControl } from '@angular/forms';
 import { Subject } from './subject.model';
 import { SubjectService } from '../shared/subject.service';
 import { ToastrService } from 'ngx-toastr';
+import { ALERT } from '../shared/alert';
 
 @Component({
   selector: 'app-subject',
@@ -23,9 +24,13 @@ export class SubjectComponent {
       SubjectName: " ",
       IsActive: true
     };
+    canShow: boolean = false;
+    alert: any;
 
-
-  constructor(private fb: FormBuilder, private subjectService: SubjectService, private toastr: ToastrService) { }
+  constructor(private fb: FormBuilder, private subjectService: SubjectService, private toastr: ToastrService) 
+  { 
+     this.alert = ALERT.ALERTS[0];
+    this.canShow = false;}
 
   showSuccess() {
     this.toastr.success('Success!');
@@ -44,11 +49,14 @@ export class SubjectComponent {
   }
 
   OnSubmit() {
+    this.alert = ALERT.ALERTS[0];
     this.subject = this.subjectForm.value;
     this.subjectService.AddSubejct(this.subject).subscribe(
       () => { this.subjectForm.reset() },
       (error: any) => { this.showError(error) },
-      () => { this.showSuccess() });
+      () => { this.showSuccess(); this.canShow=true; });
   }
-
+  close(alert: any) {
+    this.canShow = false;
+  }
 }

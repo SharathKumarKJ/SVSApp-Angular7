@@ -9,7 +9,6 @@ import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, Mat
 import { LayoutModule } from '@angular/cdk/layout';
 import { NavigationComponent } from './navigation/navigation.component';
 import { HomeComponent } from './home/home.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SignInComponent } from './user/sign-in/sign-in.component';
 import { UserComponent } from './user/user.component';
@@ -54,6 +53,7 @@ import { FeeDetailListComponent } from './fee-detail-list/fee-detail-list.compon
 import { FeeDetailViewComponent } from './fee-detail-view/fee-detail-view.component';
 import { ExportAsModule } from 'ngx-export-as';
 import { StudentAttendanceComponent } from './student-attendance/student-attendance.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [

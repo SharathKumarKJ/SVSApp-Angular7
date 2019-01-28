@@ -6,6 +6,7 @@ import { Fee } from './fee.model';
 import { StudentService } from '../shared/student.service';
 import { Student } from '../student/student.model';
 import { FeeService } from '../shared/fee.service';
+import { ALERT } from '../shared/alert';
 
 declare var $: any;
 
@@ -30,7 +31,7 @@ export class FeeDetailComponent implements OnInit {
     TotalAmount: [null, Validators.required],
     PaidAmount: [null, Validators.required],
     BalanceAmount: new FormControl({ value: '00.00', disabled: true }, Validators.required),
-    FeeStatus:[null,Validators.required],
+    FeeStatus: [null, Validators.required],
     IsActive: new FormControl({ value: true, disabled: true }, Validators.required),
   });
 
@@ -42,7 +43,8 @@ export class FeeDetailComponent implements OnInit {
   ];
 
   students: Student[];
-
+  canShow: boolean = false;
+  alert: any;
   fee: Fee =
     {
       Id: 0,
@@ -52,12 +54,13 @@ export class FeeDetailComponent implements OnInit {
       TotalAmount: 0,
       PaidAmount: 0,
       BalanceAmount: 0,
-      FeeStatus:0,
+      FeeStatus: 0,
       IsActive: true,
     };
 
   constructor(private fb: FormBuilder, private studentService: StudentService, private feeService: FeeService, private toastr: ToastrService) {
-
+    this.alert = ALERT.ALERTS[0];
+    this.canShow = false;
   }
   ngOnInit() {
 
@@ -102,12 +105,19 @@ export class FeeDetailComponent implements OnInit {
     }, (error: any) => { this.showError(error) });
   }
   onSubmit() {
+    this.alert = ALERT.ALERTS[0];
     this.fee = this.feeForm.value;
     this.fee.Student = this.students.find(x => x.FirstName == this.feeForm.value.Student);
     this.feeService.AddFee(this.fee).subscribe(
       (data: any) => { },
-      (error: any) => { this.showError(""); }
+      (error: any) => {
+        this.showError("");
+        () => { this.canShow = true; }
+      }
     );
 
+  }
+  close(alert: any) {
+    this.canShow = false;
   }
 }

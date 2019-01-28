@@ -3,6 +3,9 @@ import { FormBuilder, NgForm, FormControl, Validators } from '@angular/forms';
 import { Class } from './class.model';
 import { ClassDetailService } from '../shared/class-detail.service';
 import { ToastrService } from 'ngx-toastr';
+import { ALERT } from '../shared/alert';
+
+
 
 @Component({
   selector: 'app-class-detail',
@@ -12,9 +15,14 @@ import { ToastrService } from 'ngx-toastr';
 export class ClassDetailComponent {
   classForm = this.fb.group({
     ClassName: null,
-    IsActive: new FormControl({ value: true, disabled: true }, Validators.required),
+    IsActive: new FormControl({ value: true, disabled: false }, Validators.required),
 
   });
+
+
+
+  canShow: boolean = false;
+  alert: any;
 
   classDetail: Class =
     {
@@ -24,7 +32,12 @@ export class ClassDetailComponent {
     };
 
 
-  constructor(private fb: FormBuilder, private classDetailService: ClassDetailService, private toastr: ToastrService) { }
+
+  constructor(private fb: FormBuilder, private classDetailService: ClassDetailService, private toastr: ToastrService) {
+
+    this.alert = ALERT.ALERTS[0];
+    this.canShow = false;
+  }
 
   showSuccess() {
     this.toastr.success('Success!');
@@ -43,10 +56,18 @@ export class ClassDetailComponent {
   }
 
   OnSubmit() {
+    this.alert = ALERT.ALERTS[0];
     this.classDetail = this.classForm.value;
     this.classDetailService.AddClassDetail(this.classDetail).subscribe(
       () => { this.classForm.reset() },
       (error: any) => { this.showError(error) },
-      () => { this.showSuccess() });
+      () => {
+        this.showSuccess();
+        this.canShow = true;
+
+      });
+  }
+  close(alert: any) {
+    this.canShow = false;
   }
 }
