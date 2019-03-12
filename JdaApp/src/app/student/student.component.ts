@@ -82,8 +82,7 @@ export class StudentComponent {
     , private fb: FormBuilder
     , private classService: ClassDetailService
     , private studentService: StudentService
-    , private toastr: ToastrService) 
-    {
+    , private toastr: ToastrService) {
     this.alert = ALERT.ALERTS[0];
     this.canShow = false;
 
@@ -144,6 +143,11 @@ export class StudentComponent {
 
 
   AddStudent() {
+    
+    this.student.DateofBirth = this.student.DateofBirth != null
+      ? this.student.DateofBirth.toDateString()
+      : this.student.DateofBirth
+
     this.studentService
       .AddStudent(this.student)
       .subscribe(

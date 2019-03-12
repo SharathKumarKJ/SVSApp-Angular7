@@ -15,13 +15,17 @@ export class SignUpComponent implements OnInit {
   constructor(private userService: UserService, private toastr: ToastrService) {
 
   }
+
+  roles: string[] = ['SecurityAdmin', 'Admin', 'Teacher', 'Student'];
+
   user: User =
     {
       UserName: null,
       Password: null,
       FirstName: null,
       LastName: null,
-      Email: null
+      Email: null,
+      Role: null,
     };
   emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
   ngOnInit() {
@@ -36,7 +40,8 @@ export class SignUpComponent implements OnInit {
           Password: '',
           FirstName: '',
           LastName: '',
-          Email: ''
+          Email: '',
+          Role: '',
         }
   }
   showSuccess() {
@@ -44,7 +49,7 @@ export class SignUpComponent implements OnInit {
   }
 
   showError(error: any) {
-    this.toastr.error('Unable to register ! : '+error, '');
+    this.toastr.error('Unable to register ! : ' + error, '');
   }
 
   showWarning() {

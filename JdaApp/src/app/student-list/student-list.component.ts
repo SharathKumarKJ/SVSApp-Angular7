@@ -58,7 +58,6 @@ export class StudentListComponent implements OnInit {
   }
 
   filterdStudents(searchTerm: string): Student[] {
-
     return this.students.filter(x => x.FirstName.toLowerCase().indexOf(searchTerm.toLocaleLowerCase()) != -1)
 
   }

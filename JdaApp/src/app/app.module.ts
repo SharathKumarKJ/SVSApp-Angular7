@@ -54,6 +54,7 @@ import { FeeDetailViewComponent } from './fee-detail-view/fee-detail-view.compon
 import { ExportAsModule } from 'ngx-export-as';
 import { StudentAttendanceComponent } from './student-attendance/student-attendance.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { StudentAttendanceListComponent } from './student-attendance-list/student-attendance-list.component';
 
 @NgModule({
   declarations: [
@@ -91,6 +92,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     FeeDetailListComponent,
     FeeDetailViewComponent,
     StudentAttendanceComponent,
+    StudentAttendanceListComponent,
   ],
   imports: [
     BrowserModule,

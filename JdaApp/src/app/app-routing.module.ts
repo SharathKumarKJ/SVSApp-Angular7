@@ -29,6 +29,7 @@ import { StudentListComponent } from './student-list/student-list.component';
 import { TeacherListComponent } from './teacher-list/teacher-list.component';
 import { FeeDetailListComponent } from './fee-detail-list/fee-detail-list.component';
 import { StudentAttendanceComponent } from './student-attendance/student-attendance.component';
+import { StudentAttendanceListComponent } from './student-attendance-list/student-attendance-list.component';
 
 const routes: Routes = [
 
@@ -46,12 +47,14 @@ const routes: Routes = [
     path: '', redirectTo: '/login', pathMatch: 'full'
   },
 
-  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] ,
-  children: [{ path: '', component: DashboardComponent }]},
+  {
+    path: 'home', component: HomeComponent, canActivate: [AuthGuard],
+    children: [{ path: '', component: DashboardComponent }]
+  },
 
   {
     path: 'navigation', component: NavigationComponent, canActivate: [AuthGuard]
-   
+
   },
 
   {
@@ -59,7 +62,7 @@ const routes: Routes = [
     children: [{ path: '', component: FormFieldComponent }]
   },
 
- 
+
 
   {
     path: 'myWork', component: NavigationComponent, canActivate: [AuthGuard],
@@ -86,6 +89,11 @@ const routes: Routes = [
   {
     path: 'studentAttendance', component: NavigationComponent, canActivate: [AuthGuard],
     children: [{ path: '', component: StudentAttendanceComponent }]
+  },
+
+  {
+    path: 'AttendanceList', component: NavigationComponent, canActivate: [AuthGuard],
+    children: [{ path: '', component: StudentAttendanceListComponent }]
   },
   {
     path: 'listStudent', component: NavigationComponent, canActivate: [AuthGuard],
@@ -128,7 +136,7 @@ const routes: Routes = [
   },
 
   {
-    path: 'fee', component: NavigationComponent, canActivate: [AuthGuard],
+    path: 'fee', component: NavigationComponent, canActivate: [AuthGuard], data: { roles: ['Admin'] },
     children: [{ path: '', component: FeeDetailComponent }]
   },
 
@@ -168,7 +176,7 @@ const routes: Routes = [
     children: [{ path: '', component: CalendarComponent }]
   },
 
- 
+
 
 
 

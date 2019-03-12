@@ -73,6 +73,7 @@
           <a *ngIf="mobileQuery.matches ? false : true" mat-menu-item routerLink="/browseStudent">View</a>
           <a *ngIf="mobileQuery.matches" mat-menu-item routerLink="/listStudent">View</a>
           <a mat-menu-item routerLink="/studentAttendance">Attendance</a>
+          <a mat-menu-item routerLink="/AttendanceList">Attendance List</a>
         </mat-menu>
 
         <a mat-list-item [matMenuTriggerFor]="Teacher">Teacher</a>
@@ -94,13 +95,14 @@
           <a mat-menu-item routerLink="/browseClass">View</a>
         </mat-menu>
 
+        <div *ngIf="userService.roleMatch(['Admin'])">
         <a mat-list-item [matMenuTriggerFor]="Fee">Fee</a>
         <mat-menu #Fee="matMenu">
           <a mat-menu-item routerLink="/fee">Create</a>
           <a *ngIf="mobileQuery.matches ? false : true" mat-menu-item routerLink="/browseFee">View</a>
           <a *ngIf="mobileQuery.matches"  mat-menu-item routerLink="/listFee">View</a>
         </mat-menu>
-
+      </div>
         <a mat-list-item [matMenuTriggerFor]="TeacherSubject">Teacher Subject</a>
         <mat-menu #TeacherSubject="matMenu">
           <a mat-menu-item routerLink="/teacherSubjectDetail">Create</a>

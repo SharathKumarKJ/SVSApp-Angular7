@@ -2,6 +2,9 @@
   <mat-card class="shipping-card">
     <mat-card-header>
       <mat-card-title>Student Information</mat-card-title>
+
+
+
       <mat-card-subtitle>
           <ngb-alert *ngIf="canShow" [type]="alert.type" (close)="close(alert)">{{ alert.message }}</ngb-alert>
         </mat-card-subtitle> 
@@ -194,6 +197,7 @@
     </mat-card-content>
     <mat-card-actions>
       <button mat-raised-button color="primary" type="submit">Submit</button>
+      <button mat-raised-button color="primary"  routerLink="/browseStudent">View Students</button> 
     </mat-card-actions>
   </mat-card>
 </form>

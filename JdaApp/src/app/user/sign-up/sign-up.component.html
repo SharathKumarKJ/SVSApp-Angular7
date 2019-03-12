@@ -25,6 +25,15 @@
       </mat-form-field>
     </mat-card-content>
 
+    <mat-form-field class="full-width">
+      <input type="text" placeholder="Role"  name="Role" matInput [(ngModel)]="user.Role" [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let role of roles" [value]="role">
+          {{role}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
     <mat-card-actions>
       <button mat-raised-button color="primary" [disabled]="!userRegisterForm.valid"  type="submit">Submit</button>
     </mat-card-actions>

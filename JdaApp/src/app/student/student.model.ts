@@ -10,7 +10,7 @@ export class Student {
     MotherMobileNumber: string;
     STSCode: string;
     CasteName: string;
-    DateofBirth: Date;
+    DateofBirth: any;
     ClassDetail: Class;
     Address1: string;
     Address2: string;

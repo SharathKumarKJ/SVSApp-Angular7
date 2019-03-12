@@ -1,0 +1,69 @@
+table {
+    width: 100%;
+  }
+  .button-width
+  {
+    min-width: 30%;
+    margin: 20px auto;
+    left: 42%;
+
+  }
+  .mat-form-field {
+    font-size: 14px;
+    width: 30%;
+    left: 3%;
+  }
+  
+  .example-full-width {
+    max-width: 40%;
+    margin: 20px auto;
+  }
+  .example-loading-shade {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 56px;
+    right: 0;
+    background: rgba(0, 0, 0, 0.15);
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  th.mat-sort-header-sorted {
+    color: black;
+  }
+  
+  .pointerCursor{
+    cursor: pointer; 
+   }
+  
+   .example-card-Header {
+    min-width: 220px;
+    margin: 5px auto;
+    width: 98%;
+    max-width: 100%;
+  }
+  
+  .example-card-Body {
+    min-width: 220px;
+    margin: 5px auto;
+    width: 100%;
+    max-width: 100%;
+    height: 100%
+  }
+  .example-container {
+    height: 550px;
+    overflow: auto;
+  }
+  .row {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .col {
+    flex: 1;
+    margin-right: 20px;
+  }
+  

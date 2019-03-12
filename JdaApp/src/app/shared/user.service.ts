@@ -29,7 +29,8 @@ export class UserService {
       Password: user.Password,
       Email: user.Email,
       FirstName: user.FirstName,
-      LastName: user.LastName
+      LastName: user.LastName,
+      Role:user.Role,
     }
     var reqHeader = new HttpHeaders({ 'No-Auth': 'True' });
     return this.httpClient.post(RootURL.URl + '/api/User/Register', body, { headers: reqHeader })
@@ -53,6 +54,18 @@ export class UserService {
     return this.httpClient.get(RootURL.URl + '/api/GetUserClaims')
       .pipe(tap(() => console.log('Fetched User Claims')),
         catchError(this.handleError('User', [])));
+  }
+
+  roleMatch(allowedRoles): boolean {
+    var isMatch = false;
+    var userRoles: string[] = JSON.parse(localStorage.getItem('userRole'));
+    allowedRoles.forEach(element => {
+      if (userRoles.indexOf(element) > -1) {
+        isMatch = true;
+        return false;
+      }
+    });
+    return isMatch;
   }
 
 
