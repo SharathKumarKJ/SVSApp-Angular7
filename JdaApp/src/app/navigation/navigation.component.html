@@ -64,56 +64,70 @@
     </div>
   </mat-toolbar>
   <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
-    <mat-sidenav class="novColor" #snav [mode]="mobileQuery.matches ? 'over' : 'over'" [fixedInViewport]="mobileQuery.matches"
-      fixedTopGap="56">
+    <mat-sidenav class="novColor" #snav [mode]="mobileQuery.matches ? 'over' : 'over'"
+      [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
       <mat-nav-list>
-        <a mat-list-item [matMenuTriggerFor]="Student">Student</a>
-        <mat-menu #Student="matMenu" yPosition="above">
-          <a mat-menu-item routerLink="/student">Create</a>
-          <a *ngIf="mobileQuery.matches ? false : true" mat-menu-item routerLink="/browseStudent">View</a>
-          <a *ngIf="mobileQuery.matches" mat-menu-item routerLink="/listStudent">View</a>
-          <a mat-menu-item routerLink="/studentAttendance">Attendance</a>
-          <a mat-menu-item routerLink="/AttendanceList">Attendance List</a>
-        </mat-menu>
 
-        <a mat-list-item [matMenuTriggerFor]="Teacher">Teacher</a>
-        <mat-menu #Teacher="matMenu">
-          <a mat-menu-item routerLink="/teacher">Create</a>
-          <a *ngIf="mobileQuery.matches ? false : true"mat-menu-item routerLink="/browseTeacher">View</a>
-          <a *ngIf="mobileQuery.matches"  mat-menu-item routerLink="/listTeacher">View</a>
-        </mat-menu>
+        <div *ngIf="userService.roleMatch(['Admin','SecurityAdmin','Teacher'])">
+          <a mat-list-item [matMenuTriggerFor]="Student">Student</a>
+          <mat-menu #Student="matMenu" yPosition="above">
+            <a mat-menu-item routerLink="/student">Create</a>
+            <a *ngIf="mobileQuery.matches ? false : true" mat-menu-item routerLink="/browseStudent">View</a>
+            <a *ngIf="mobileQuery.matches" mat-menu-item routerLink="/listStudent">View</a>
+            <a mat-menu-item routerLink="/studentAttendance">Attendance</a>
+            <a mat-menu-item routerLink="/AttendanceList">Attendance List</a>
+          </mat-menu>
+        </div>
 
-        <a mat-list-item [matMenuTriggerFor]="Subject">Subject</a>
-        <mat-menu #Subject="matMenu">
-          <a mat-menu-item routerLink="/subject">Create</a>
-          <a mat-menu-item routerLink="/browseSubject">View</a>
-        </mat-menu>
+        <div *ngIf="userService.roleMatch(['Admin','SecurityAdmin'])">
+          <a mat-list-item [matMenuTriggerFor]="Teacher">Teacher</a>
+          <mat-menu #Teacher="matMenu">
+            <a mat-menu-item routerLink="/teacher">Create</a>
+            <a *ngIf="mobileQuery.matches ? false : true" mat-menu-item routerLink="/browseTeacher">View</a>
+            <a *ngIf="mobileQuery.matches" mat-menu-item routerLink="/listTeacher">View</a>
+          </mat-menu>
+        </div>
 
-        <a mat-list-item [matMenuTriggerFor]="Class">Class</a>
-        <mat-menu #Class="matMenu">
-          <a mat-menu-item routerLink="/class">Create</a>
-          <a mat-menu-item routerLink="/browseClass">View</a>
-        </mat-menu>
+        <div *ngIf="userService.roleMatch(['Admin','SecurityAdmin','Teacher'])">
+          <a mat-list-item [matMenuTriggerFor]="Subject">Subject</a>
+          <mat-menu #Subject="matMenu">
+            <a mat-menu-item routerLink="/subject">Create</a>
+            <a mat-menu-item routerLink="/browseSubject">View</a>
+          </mat-menu>
+        </div>
 
-        <div *ngIf="userService.roleMatch(['Admin'])">
-        <a mat-list-item [matMenuTriggerFor]="Fee">Fee</a>
-        <mat-menu #Fee="matMenu">
-          <a mat-menu-item routerLink="/fee">Create</a>
-          <a *ngIf="mobileQuery.matches ? false : true" mat-menu-item routerLink="/browseFee">View</a>
-          <a *ngIf="mobileQuery.matches"  mat-menu-item routerLink="/listFee">View</a>
-        </mat-menu>
-      </div>
-        <a mat-list-item [matMenuTriggerFor]="TeacherSubject">Teacher Subject</a>
-        <mat-menu #TeacherSubject="matMenu">
-          <a mat-menu-item routerLink="/teacherSubjectDetail">Create</a>
-          <a mat-menu-item routerLink="/browseTeacherSubjectDetail">View</a>
-        </mat-menu>
+        <div *ngIf="userService.roleMatch(['Admin','SecurityAdmin','Teacher'])">
+          <a mat-list-item [matMenuTriggerFor]="Class">Class</a>
+          <mat-menu #Class="matMenu">
+            <a mat-menu-item routerLink="/class">Create</a>
+            <a mat-menu-item routerLink="/browseClass">View</a>
+          </mat-menu>
+        </div>
+
+        <div *ngIf="userService.roleMatch(['Admin','SecurityAdmin'])">
+          <a mat-list-item [matMenuTriggerFor]="Fee">Fee</a>
+          <mat-menu #Fee="matMenu">
+            <a mat-menu-item routerLink="/fee">Create</a>
+            <a *ngIf="mobileQuery.matches ? false : true" mat-menu-item routerLink="/browseFee">View</a>
+            <a *ngIf="mobileQuery.matches" mat-menu-item routerLink="/listFee">View</a>
+          </mat-menu>
+        </div>
+
+        <div *ngIf="userService.roleMatch(['Admin','SecurityAdmin'])">
+          <a mat-list-item [matMenuTriggerFor]="TeacherSubject">Teacher Subject</a>
+          <mat-menu #TeacherSubject="matMenu">
+            <a mat-menu-item routerLink="/teacherSubjectDetail">Create</a>
+            <a mat-menu-item routerLink="/browseTeacherSubjectDetail">View</a>
+          </mat-menu>
+        </div>
 
         <a mat-menu-item routerLink="/myFolder">My Folder</a>
         <a mat-menu-item routerLink="/myWork">My Work</a>
         <a mat-menu-item routerLink="/photo">Photo Library</a>
         <a mat-menu-item routerLink="/calendar">Calender</a>
+
         <a mat-menu-item (click)="Logout()">Logout</a>
+        
       </mat-nav-list>
     </mat-sidenav>
 

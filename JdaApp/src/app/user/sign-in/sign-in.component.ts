@@ -18,11 +18,13 @@ export class SignInComponent implements OnInit {
   }
 
   OnSubmit(userName, password) {
+    console.log(userName + password);
     this.userService.userAuthentication(userName, password).subscribe((data: any) => {
       localStorage.setItem('userToken', data.access_token);
       localStorage.setItem('userRole', data.role);
-   
+      console.log("routing started..")
       this.router.navigate(['/home']);
+      console.log("routing ends")
     },
       (err: HttpErrorResponse) => {
         this.isLoginError = true;

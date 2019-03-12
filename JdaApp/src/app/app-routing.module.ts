@@ -48,12 +48,12 @@ const routes: Routes = [
   },
 
   {
-    path: 'home', component: HomeComponent, canActivate: [AuthGuard],
+    path: 'home', component: HomeComponent, canActivate: [AuthGuard], data: { roles: ['Admin','SecurityAdmin','Teacher','Student'] },
     children: [{ path: '', component: DashboardComponent }]
   },
 
   {
-    path: 'navigation', component: NavigationComponent, canActivate: [AuthGuard]
+    path: 'navigation', component: NavigationComponent, canActivate: [AuthGuard],data: { roles: ['Admin','SecurityAdmin','Teacher','Student'] },
 
   },
 
@@ -75,87 +75,87 @@ const routes: Routes = [
   },
 
   {
-    path: 'student', component: NavigationComponent, canActivate: [AuthGuard],
+    path: 'student', component: NavigationComponent, canActivate: [AuthGuard],data: { roles: ['Admin','SecurityAdmin','Teacher'] },
     children: [{ path: '', component: StudentComponent }]
   },
   {
-    path: 'student/:Id', component: NavigationComponent, canActivate: [AuthGuard],
+    path: 'student/:Id', component: NavigationComponent, canActivate: [AuthGuard],data: { roles: ['Admin','SecurityAdmin','Teacher'] },
     children: [{ path: '', component: StudentComponent }]
   },
   {
-    path: 'browseStudent', component: NavigationComponent, canActivate: [AuthGuard],
+    path: 'browseStudent', component: NavigationComponent, canActivate: [AuthGuard], data: { roles: ['Admin','SecurityAdmin','Teacher'] },
     children: [{ path: '', component: BrowseStudentComponent }]
   },
   {
-    path: 'studentAttendance', component: NavigationComponent, canActivate: [AuthGuard],
+    path: 'studentAttendance', component: NavigationComponent, canActivate: [AuthGuard],data: { roles: ['Admin','SecurityAdmin','Teacher'] },
     children: [{ path: '', component: StudentAttendanceComponent }]
   },
 
   {
-    path: 'AttendanceList', component: NavigationComponent, canActivate: [AuthGuard],
+    path: 'AttendanceList', component: NavigationComponent, canActivate: [AuthGuard],data: { roles: ['Admin','SecurityAdmin','Teacher'] },
     children: [{ path: '', component: StudentAttendanceListComponent }]
   },
   {
-    path: 'listStudent', component: NavigationComponent, canActivate: [AuthGuard],
+    path: 'listStudent', component: NavigationComponent, canActivate: [AuthGuard],data: { roles: ['Admin','SecurityAdmin','Teacher'] },
     children: [{ path: '', component: StudentListComponent }]
   },
 
   {
-    path: 'teacher', component: NavigationComponent, canActivate: [AuthGuard],
+    path: 'teacher', component: NavigationComponent, canActivate: [AuthGuard],data: { roles: ['Admin','SecurityAdmin',] },
     children: [{ path: '', component: TeacherComponent }]
   },
 
   {
-    path: 'browseTeacher', component: NavigationComponent, canActivate: [AuthGuard],
+    path: 'browseTeacher', component: NavigationComponent, canActivate: [AuthGuard],data: { roles: ['Admin','SecurityAdmin'] },
     children: [{ path: '', component: BrowseTeacherComponent }]
   },
 
   {
-    path: 'listTeacher', component: NavigationComponent, canActivate: [AuthGuard],
+    path: 'listTeacher', component: NavigationComponent, canActivate: [AuthGuard],data: { roles: ['Admin','SecurityAdmin'] },
     children: [{ path: '', component: TeacherListComponent }]
   },
 
   {
-    path: 'subject', component: NavigationComponent, canActivate: [AuthGuard],
+    path: 'subject', component: NavigationComponent, canActivate: [AuthGuard],data: { roles: ['Admin','SecurityAdmin','Teacher'] },
     children: [{ path: '', component: SubjectComponent }]
   },
 
   {
-    path: 'browseSubject', component: NavigationComponent, canActivate: [AuthGuard],
+    path: 'browseSubject', component: NavigationComponent, canActivate: [AuthGuard],data: { roles: ['Admin','SecurityAdmin','Teacher'] },
     children: [{ path: '', component: BrowseSubjectComponent }]
   },
 
   {
-    path: 'class', component: NavigationComponent, canActivate: [AuthGuard],
+    path: 'class', component: NavigationComponent, canActivate: [AuthGuard],data: { roles: ['Admin','SecurityAdmin'] },
     children: [{ path: '', component: ClassDetailComponent }]
   },
 
   {
-    path: 'browseClass', component: NavigationComponent, canActivate: [AuthGuard],
+    path: 'browseClass', component: NavigationComponent, canActivate: [AuthGuard],data: { roles: ['Admin','SecurityAdmin'] },
     children: [{ path: '', component: BrowseClassesComponent }]
   },
 
   {
-    path: 'fee', component: NavigationComponent, canActivate: [AuthGuard], data: { roles: ['Admin'] },
+    path: 'fee', component: NavigationComponent, canActivate: [AuthGuard], data: { roles: ['Admin','SecurityAdmin'] },
     children: [{ path: '', component: FeeDetailComponent }]
   },
 
   {
-    path: 'browseFee', component: NavigationComponent, canActivate: [AuthGuard],
+    path: 'browseFee', component: NavigationComponent, canActivate: [AuthGuard],data: { roles: ['Admin','SecurityAdmin'] },
     children: [{ path: '', component: BrowseFeeDetailComponent }]
   },
   {
-    path: 'listFee', component: NavigationComponent, canActivate: [AuthGuard],
+    path: 'listFee', component: NavigationComponent, canActivate: [AuthGuard],data: { roles: ['Admin','SecurityAdmin'] },
     children: [{ path: '', component: FeeDetailListComponent }]
   },
 
   {
-    path: 'teacherSubjectDetail', component: NavigationComponent, canActivate: [AuthGuard],
+    path: 'teacherSubjectDetail', component: NavigationComponent, canActivate: [AuthGuard],data: { roles: ['Admin','SecurityAdmin','Teacher'] },
     children: [{ path: '', component: TeacherSubjectDetailComponent }]
   },
 
   {
-    path: 'browseTeacherSubjectDetail', component: NavigationComponent, canActivate: [AuthGuard],
+    path: 'browseTeacherSubjectDetail', component: NavigationComponent, canActivate: [AuthGuard],data: { roles: ['Admin','SecurityAdmin','Teacher'] },
     children: [{ path: '', component: BrowseTeacherSubjectDetailComponent }]
   },
 
@@ -164,15 +164,15 @@ const routes: Routes = [
     children: [{ path: '', component: BrowseUserComponent }]
   },
   {
-    path: 'dashBoard', component: NavigationComponent, canActivate: [AuthGuard],
+    path: 'dashBoard', component: NavigationComponent, canActivate: [AuthGuard],data: { roles: ['Admin','SecurityAdmin','Teacher','Student'] },
     children: [{ path: '', component: DashboardComponent }]
   },
   {
-    path: 'photo', component: NavigationComponent, canActivate: [AuthGuard],
+    path: 'photo', component: NavigationComponent, canActivate: [AuthGuard],data: { roles: ['Admin','SecurityAdmin','Teacher','Student'] },
     children: [{ path: '', component: PhotoGalleryComponent }]
   },
   {
-    path: 'calendar', component: NavigationComponent, canActivate: [AuthGuard],
+    path: 'calendar', component: NavigationComponent, canActivate: [AuthGuard],data: { roles: ['Admin','SecurityAdmin','Teacher','Student'] },
     children: [{ path: '', component: CalendarComponent }]
   },
 
