@@ -23,6 +23,8 @@
   <div class="example-loading-shade" *ngIf="isLoadingResults">
     <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
   </div>
+
+  
   <mat-card class="example-card-Body">
     <table id="studentTable" mat-table [dataSource]="dataSource" multiTemplateDataRows>
       
@@ -124,3 +126,4 @@
     <mat-paginator [pageSizeOptions]="[15, 30, 60]" showFirstLastButtons></mat-paginator>
 
   </mat-card>
+  

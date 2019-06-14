@@ -1,0 +1,38 @@
+<h1 mat-dialog-title>Student Marks Sheet</h1>
+<div mat-dialog-content>
+  <div class="row">
+    <div class="col">
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Exam Type" [(ngModel)]="data.ExamType" name="ExamType">
+      </mat-form-field>
+    </div>
+    <div class="col">
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Result Status" [(ngModel)]="data.ResultStatus" name="ResultStatus">
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Total Marks" [(ngModel)]="data.TotalMarks" name="TotalMarks">
+      </mat-form-field>
+    </div>
+    <div class="col">
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Marks Obtained" [(ngModel)]="data.MarksObtained" name="MarksObtained">
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Grade" [(ngModel)]="data.Grade" name="Grade">
+      </mat-form-field>
+    </div>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
+</div>

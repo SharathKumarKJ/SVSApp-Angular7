@@ -30,6 +30,7 @@ import { TeacherListComponent } from './teacher-list/teacher-list.component';
 import { FeeDetailListComponent } from './fee-detail-list/fee-detail-list.component';
 import { StudentAttendanceComponent } from './student-attendance/student-attendance.component';
 import { StudentAttendanceListComponent } from './student-attendance-list/student-attendance-list.component';
+import { StudentMarksComponent } from './student-marks/student-marks.component';
 
 const routes: Routes = [
 
@@ -90,6 +91,11 @@ const routes: Routes = [
     path: 'studentAttendance', component: NavigationComponent, canActivate: [AuthGuard],data: { roles: ['Admin','SecurityAdmin','Teacher'] },
     children: [{ path: '', component: StudentAttendanceComponent }]
   },
+  {
+    path: 'studentMarks', component: NavigationComponent, canActivate: [AuthGuard],data: { roles: ['Admin','SecurityAdmin','Teacher'] },
+    children: [{ path: '', component: StudentMarksComponent }]
+  },
+
 
   {
     path: 'AttendanceList', component: NavigationComponent, canActivate: [AuthGuard],data: { roles: ['Admin','SecurityAdmin','Teacher'] },

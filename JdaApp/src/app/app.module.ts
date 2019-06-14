@@ -55,6 +55,8 @@ import { ExportAsModule } from 'ngx-export-as';
 import { StudentAttendanceComponent } from './student-attendance/student-attendance.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { StudentAttendanceListComponent } from './student-attendance-list/student-attendance-list.component';
+import { StudentMarksComponent } from './student-marks/student-marks.component';
+import { StudentMarksDialogComponent } from './student-marks/student-marks-dialog/student-marks-dialog.component';
 
 @NgModule({
   declarations: [
@@ -93,6 +95,8 @@ import { StudentAttendanceListComponent } from './student-attendance-list/studen
     FeeDetailViewComponent,
     StudentAttendanceComponent,
     StudentAttendanceListComponent,
+    StudentMarksComponent,
+    StudentMarksDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -138,6 +142,7 @@ import { StudentAttendanceListComponent } from './student-attendance-list/studen
       multi: true
 
     }],
+    entryComponents: [StudentMarksComponent, StudentMarksDialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

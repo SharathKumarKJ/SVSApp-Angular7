@@ -38,4 +38,6 @@ div.error-message i{
 .tabs .tab a.active{
     background-color: #fff !important;
 }
-
+#toast-container > div {
+    opacity:1;
+}

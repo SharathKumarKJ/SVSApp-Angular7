@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, Validators, NgForm, FormControl, FormGroup } from '@angular/forms';
 import { Class } from '../class-detail/class.model';
 import { ClassDetailService } from '../shared/class-detail.service';

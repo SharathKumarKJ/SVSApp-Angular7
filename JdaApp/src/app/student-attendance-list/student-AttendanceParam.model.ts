@@ -1,4 +1,3 @@
-import { AnimationKeyframesSequenceMetadata } from '@angular/animations';
 
 export class AttendanceParam {
     ClassName: string;

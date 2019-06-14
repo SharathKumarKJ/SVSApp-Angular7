@@ -2,9 +2,6 @@
   <mat-card class="shipping-card">
     <mat-card-header>
       <mat-card-title>Student Information</mat-card-title>
-
-
-
       <mat-card-subtitle>
           <ngb-alert *ngIf="canShow" [type]="alert.type" (close)="close(alert)">{{ alert.message }}</ngb-alert>
         </mat-card-subtitle> 
@@ -191,6 +188,7 @@
             </div>
           </div>
         </mat-expansion-panel>
+        
       </mat-accordion>
 
 
